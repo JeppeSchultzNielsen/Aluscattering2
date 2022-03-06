@@ -74,6 +74,7 @@
 {
       "name" : "Pad1",
       "file" : "AUPAD_1500_01.json",
+      "calibration" : "Pad1.cal",
       "position" : {"x":"32 mm", "y":"1.85393 mm", "z":"0.396043 mm"},
       "normal" : {"x":"-1 mm", "y":"0 mm", "z":"0 mm"},
       "orientation" : {"x":"0 mm", "y":"1 mm", "z":"0 mm"},
@@ -85,6 +86,7 @@
 {
       "name" : "Pad2",
       "file" : "AUPAD_1500_02.json",
+      "calibration" : "Pad2.cal",
       "position" : {"x":"-33 mm", "y":"2.23969 mm", "z":"-0.466021 mm"},
       "normal" : {"x":"1 mm", "y":"0 mm", "z":"0 mm"},
       "orientation" : {"x":"0 mm", "y":"1 mm", "z":"0 mm"},

@@ -77,9 +77,9 @@ public:
         v_F = make_unique<DynamicBranchVector<short>>(*t, "FI", "mul");
         v_B = make_unique<DynamicBranchVector<short>>(*t, "BI", "mul");
 
-        t->Branch("TPATTERN", &TPATTERN);
-        t->Branch("TPROTONS", &TPROTONS);
-        t->Branch("EGPS", &EGPS);
+        //t->Branch("TPATTERN", &TPATTERN);
+        //t->Branch("TPROTONS", &TPROTONS);
+        //t->Branch("EGPS", &EGPS);
 
         SiCalc = defaultRangeInverter("p", "Silicon");
         for (auto &layer: target.getLayers()) {
@@ -96,10 +96,10 @@ public:
         for (size_t i = 0; i < output.dssdCount(); ++i) {
             auto dl = getFrontDeadLayer(output.getDssdOutput(i).detector());
             auto dlB = getBackDeadLayer(output.getDssdOutput(i).detector());
-            auto dlP = getFrontDeadLayer(output.getSingleOutput(i).detector());
+            //auto dlP = getFrontDeadLayer(output.getSingleOutput(i).detector());
             deadlayerF.push_back(dl);
             deadlayerB.push_back(dlB);
-            deadlayerP.push_back(dlP);
+            //deadlayerP.push_back(dlP);
         }
     }
 
@@ -109,7 +109,7 @@ public:
         for (size_t i = 0; i < output.dssdCount(); i++) {
             //Hent outputs fra hver detektor. Find også multipliciteten i detektoren for det pågældende event?
             auto &o = output.getDssdOutput(i);
-            auto &p = output.getSingleOutput(i);
+            //auto &p = output.getSingleOutput(i);
             auto &d = o.detector();
             auto m = AUSA::mul(o);
 
@@ -127,7 +127,7 @@ public:
                 auto eDssd = energy(o, j);
                 auto eFDssd = fEnergy(o, j);
                 auto eBDssd = bEnergy(o, j);
-                auto ePad = p.energy(0);
+              //  auto ePad = p.energy(0);
 
                 // vi assigner de detektorsegments, eventet er sket i. Det gemmes også i hit.
                 auto BI = bSeg(o, j);
@@ -149,11 +149,11 @@ public:
                 if (!simulation) {
                     hit.TF = fTime(o, j);
                     hit.TB = bTime(o, j);
-                    hit.TPad = p.time(0);
+                //    hit.TPad = p.time(0);
                 } else {
                     hit.TF = 42;
                     hit.TB = 42;
-                    hit.TPad = 42;
+                  //  hit.TPad = 42;
                 }
 
                 // angle er vinklen mellem detektorens normalvektor og retningen, partiklen kommer ind i. Denne
@@ -163,7 +163,7 @@ public:
 
                 auto tF = deadlayerF[i] / abs(cos(angle));
                 auto tB = deadlayerB[i] / abs(cos(angle));
-                auto tP = deadlayerP[i] / abs(cos(angle));
+                //auto tP = deadlayerP[i] / abs(cos(angle));
 
                 //initialiser nogle variable (lidt mærkeligt det her? De kunne bare være initialiseret som de
                 //originale energier, eDssd osv - de bliver tillagt senere
@@ -242,14 +242,25 @@ public:
     // nok holder styr på, hvor mange events der er.
     void analyze() override {
         clear();
-        TPATTERN = output.getScalerOutput("TPATTERN").getValue();
-        TPROTONS = output.getScalerOutput("TPROTONS").getValue();
-        EGPS = output.getScalerOutput("EGPS").getValue();
+        //TPATTERN = output.getScalerOutput("TPATTERN").getValue();
+        //TPROTONS = output.getScalerOutput("TPROTONS").getValue();
+        //EGPS = output.getScalerOutput("EGPS").getValue();
         findHits();
         doAnalysis();
         if (mul > 0) { t->Fill(); }
         hits.clear();
         NUM++;
+    }
+
+    void clear() {
+        mul = 0;
+        AUSA::clear(
+                *v_E, *v_theta,
+                *v_i, *v_FE, *v_BE,
+                *v_F, *v_B,
+                *v_ang, *v_pos, *v_dir,
+                *v_dE, *v_FT, *v_BT
+        );
     }
 
     //bliver kaldt efter sidste event. Den abstrakte terminate kaldes (hvorfor?) og jeg tror gDirectoyry WriteTObject
@@ -264,15 +275,15 @@ public:
 int main(int argc, char *argv[]) {
     //læs setup og target filer.
     auto setup = JSON::readSetupFromJSON("setup/setup.json");
-    auto target = JSON::readTargetFromJSON("target.json");
+    auto target = JSON::readTargetFromJSON("setup/target.json");
 
     string in = argv[1];
-
+    cout << "hej" << endl;
     SortedReader reader{*setup};
     reader.add(in);
     reader.setVerbose(true);
 
-    TString outfile = (in + "lio.root").c_str();
+    TString outfile = "lio.root";
 
     cout << "Reading from: " << in << endl;
     cout << "Printing to:  " << outfile << endl;
