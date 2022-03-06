@@ -11,3 +11,5 @@ find_package(AUSALIB REQUIRED)
 
 add_executable(Analyzer Analyse.cpp)
 target_link_libraries(Analyzer PRIVATE AUSA::AUSA)
+add_executable(Vinkler Vinkelhistogrammer.cpp)
+target_link_libraries(Vinkler PRIVATE AUSA::AUSA)

@@ -1,3 +1,4 @@
-/home/jeppe/devel/projects/Aluscattering2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jeppe/devel/projects/Aluscattering2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/jeppe/devel/projects/Aluscattering2/cmake-build-debug/CMakeFiles/Vinkler.dir
 /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug/CMakeFiles/Analyzer.dir

@@ -65,16 +65,6 @@ CMAKE_BINARY_DIR = /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -84,6 +74,16 @@ edit_cache:
 # Special rule for the target edit_cache
 edit_cache/fast: edit_cache
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -115,6 +115,19 @@ preinstall/fast:
 depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+#=============================================================================
+# Target rules for targets named Vinkler
+
+# Build rule for target.
+Vinkler: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Vinkler
+.PHONY : Vinkler
+
+# fast build rule for target.
+Vinkler/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Vinkler.dir/build.make CMakeFiles/Vinkler.dir/build
+.PHONY : Vinkler/fast
 
 #=============================================================================
 # Target rules for targets named Analyzer
@@ -153,6 +166,30 @@ Analyse.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Analyzer.dir/build.make CMakeFiles/Analyzer.dir/Analyse.cpp.s
 .PHONY : Analyse.cpp.s
 
+Vinkelhistogrammer.o: Vinkelhistogrammer.cpp.o
+.PHONY : Vinkelhistogrammer.o
+
+# target to build an object file
+Vinkelhistogrammer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Vinkler.dir/build.make CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o
+.PHONY : Vinkelhistogrammer.cpp.o
+
+Vinkelhistogrammer.i: Vinkelhistogrammer.cpp.i
+.PHONY : Vinkelhistogrammer.i
+
+# target to preprocess a source file
+Vinkelhistogrammer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Vinkler.dir/build.make CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.i
+.PHONY : Vinkelhistogrammer.cpp.i
+
+Vinkelhistogrammer.s: Vinkelhistogrammer.cpp.s
+.PHONY : Vinkelhistogrammer.s
+
+# target to generate assembly for a file
+Vinkelhistogrammer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Vinkler.dir/build.make CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.s
+.PHONY : Vinkelhistogrammer.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +199,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Analyzer"
+	@echo "... Vinkler"
 	@echo "... Analyse.o"
 	@echo "... Analyse.i"
 	@echo "... Analyse.s"
+	@echo "... Vinkelhistogrammer.o"
+	@echo "... Vinkelhistogrammer.i"
+	@echo "... Vinkelhistogrammer.s"
 .PHONY : help
 
 

@@ -50,7 +50,6 @@ public:
     //Constructor for analyseklassen. Vi initialiserer det TTree, som vi vil ende med at gemme alle vores ting i.
     //Der laves også nogle energitabsberegninger. Gad vide mon hvad de skal bruges til.
     MyAnalysis(Target &target, TFile *output) : target(target) {
-        //jeps
         NUM = 0;
 
         t = new TTree("a", "a");
