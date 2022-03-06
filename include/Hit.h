@@ -17,6 +17,7 @@ struct Hit {
     double theta;
     double angle;
     double phi;
+    double scatterAngle;
     int numInDet, detectorMul;
     short fseg, bseg;
     std::vector<ParticleType> type;

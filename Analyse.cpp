@@ -35,7 +35,7 @@ public:
     unique_ptr<DynamicBranchVector<double>> v_E, v_BE, v_FE, v_theta, v_dE;
     unique_ptr<DynamicBranchVector<short>> v_i;
     unique_ptr<DynamicBranchVector<short>> v_F, v_B;
-    unique_ptr<DynamicBranchVector<double>> v_ang;
+    unique_ptr<DynamicBranchVector<double>> v_ang, v_SAng;
     unique_ptr<DynamicBranchVector<double>> v_FT, v_BT;
 
     UInt_t mul{}, TPATTERN{}, TPROTONS{}, EGPS{};
@@ -62,6 +62,7 @@ public:
 
         v_theta = make_unique<DynamicBranchVector<double>>(*t, "theta", "mul");
         v_ang = make_unique<DynamicBranchVector<double>>(*t, "angle", "mul");
+        v_SAng = make_unique<DynamicBranchVector<double>>(*t, "scatterAngle", "mul");
 
         v_E = make_unique<DynamicBranchVector<double>>(*t, "E", "mul");
         v_BE = make_unique<DynamicBranchVector<double>>(*t, "BE", "mul");
@@ -145,6 +146,12 @@ public:
                 hit.direction = direction;
                 hit.theta = hit.direction.Theta();
 
+                //tilføj en vektor, der beskriver beamens retning. Beregn vinklen mellem denne og direction, og assign
+                //det til hittet.
+                auto beamDirection = TVector3(0,0,1);
+                auto scatterAngle = hit.direction.Angle(beamDirection);
+                hit.scatterAngle = scatterAngle;
+
                 //assign de tider, hittet er sket i.
                 if (!simulation) {
                     hit.TF = fTime(o, j);
@@ -219,6 +226,7 @@ public:
             v_pos->add(hit.position);
             v_dir->add(hit.direction);
             v_theta->add(hit.theta * TMath::RadToDeg());
+            v_SAng->add(hit.scatterAngle * TMath::RadToDeg());
 
             v_E->add(hit.E);
             v_BE->add(hit.BE);
@@ -257,7 +265,7 @@ public:
         AUSA::clear(
                 *v_E, *v_theta,
                 *v_i, *v_FE, *v_BE,
-                *v_F, *v_B,
+                *v_F, *v_B, *v_SAng,
                 *v_ang, *v_pos, *v_dir,
                 *v_dE, *v_FT, *v_BT
         );

@@ -9,7 +9,7 @@
       "reverseBack" : true,
       "position" : {"x":"31 mm", "y":"0 mm", "z":"0 mm"},
       "normal" : {"x":"-1 mm", "y":"0 mm", "z":"0 mm"},
-      "orientation" : {"x":"0 mm", "y":"1 mm", "z":"0 mm"},
+      "orientation" : {"x":"0 mm", "y":"-1 mm", "z":"0 mm"},
       "frontMapping" : {
         "prefix" : "DET1F",
         "multiplicity" : "",
@@ -33,7 +33,7 @@
       "reverseBack" : true,
       "position" : {"x":"-32 mm", "y":"0 mm", "z":"0 mm"},
       "normal" : {"x":"1 mm", "y":"0 mm", "z":"0 mm"},
-      "orientation" : {"x":"0 mm", "y":"1 mm", "z":"0 mm"},
+      "orientation" : {"x":"0 mm", "y":"-1 mm", "z":"0 mm"},
       "frontMapping" : {
         "prefix" : "DET2F",
         "multiplicity" : "",
