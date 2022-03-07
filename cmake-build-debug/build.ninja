@@ -42,6 +42,17 @@ include CMakeFiles/rules.ninja
 cmake_ninja_workdir = /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug/
 
 #############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug && /home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
@@ -52,16 +63,42 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+# =============================================================================
+# Object build statements for EXECUTABLE target Vinkler
+
 
 #############################################
-# Utility command for edit_cache
+# Order-only phony target for Vinkler
 
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug && /home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
+build cmake_object_order_depends_target_Vinkler: phony || CMakeFiles/Vinkler.dir
 
-build edit_cache: phony CMakeFiles/edit_cache.util
+build CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o: CXX_COMPILER__Vinkler_Debug /home/jeppe/devel/projects/Aluscattering2/Vinkelhistogrammer.cpp || cmake_object_order_depends_target_Vinkler
+  DEFINES = -DAUSA_HAS_CURL -DAUSA_HAS_LIBCURL -DFMT_LOCALE -DHAVE_GSL
+  DEP_FILE = CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -I/home/jeppe/devel/projects/Aluscattering2/. -I/home/jeppe/devel/projects/Aluscattering2/match -I/home/jeppe/devel/projects/Aluscattering2/setup -isystem /usr/local/include/root
+  OBJECT_DIR = CMakeFiles/Vinkler.dir
+  OBJECT_FILE_DIR = CMakeFiles/Vinkler.dir
+  TARGET_COMPILE_PDB = CMakeFiles/Vinkler.dir/
+  TARGET_PDB = Vinkler.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Vinkler
+
+
+#############################################
+# Link the executable Vinkler
+
+build Vinkler: CXX_EXECUTABLE_LINKER__Vinkler_Debug CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o | /usr/local/lib/libAUSA.a /usr/local/lib/root/libPhysics.so.6.24.06 /usr/local/lib/root/libTreePlayer.so.6.24.06 /usr/local/lib/root/libGraf3d.so.6.24.06 /usr/local/lib/root/libGpad.so.6.24.06 /usr/local/lib/root/libGraf.so.6.24.06 /usr/local/lib/root/libTree.so.6.24.06 /usr/local/lib/root/libMathMore.so.6.24.06 /usr/local/lib/root/libSpectrum.so.6.24.06 /usr/local/lib/root/libHist.so.6.24.06 /usr/local/lib/root/libMatrix.so.6.24.06 /usr/local/lib/root/libMathCore.so.6.24.06 /usr/local/lib/root/libImt.so.6.24.06 /usr/local/lib/root/libMultiProc.so.6.24.06 /usr/local/lib/root/libNet.so.6.24.06 /usr/local/lib/root/libRIO.so.6.24.06 /usr/local/lib/root/libThread.so.6.24.06 /usr/local/lib/root/libCore.so.6.24.06 /usr/local/lib/root/libCling.so.6.24.06 /usr/lib/x86_64-linux-gnu/libfmt.a /usr/lib/x86_64-linux-gnu/libgsl.so /usr/lib/x86_64-linux-gnu/libgslcblas.so /usr/lib/x86_64-linux-gnu/libcurl.so
+  FLAGS = -g
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib/root  /usr/local/lib/libAUSA.a  /usr/local/lib/root/libPhysics.so.6.24.06  /usr/local/lib/root/libTreePlayer.so.6.24.06  /usr/local/lib/root/libGraf3d.so.6.24.06  /usr/local/lib/root/libGpad.so.6.24.06  /usr/local/lib/root/libGraf.so.6.24.06  /usr/local/lib/root/libTree.so.6.24.06  /usr/local/lib/root/libMathMore.so.6.24.06  /usr/local/lib/root/libSpectrum.so.6.24.06  /usr/local/lib/root/libHist.so.6.24.06  /usr/local/lib/root/libMatrix.so.6.24.06  /usr/local/lib/root/libMathCore.so.6.24.06  /usr/local/lib/root/libImt.so.6.24.06  /usr/local/lib/root/libMultiProc.so.6.24.06  /usr/local/lib/root/libNet.so.6.24.06  /usr/local/lib/root/libRIO.so.6.24.06  /usr/local/lib/root/libThread.so.6.24.06  /usr/local/lib/root/libCore.so.6.24.06  -lpthread  /usr/local/lib/root/libCling.so.6.24.06  -Wl,--unresolved-symbols=ignore-in-object-files  /usr/lib/x86_64-linux-gnu/libfmt.a  /usr/lib/x86_64-linux-gnu/libgsl.so  /usr/lib/x86_64-linux-gnu/libgslcblas.so  /usr/lib/x86_64-linux-gnu/libcurl.so
+  OBJECT_DIR = CMakeFiles/Vinkler.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Vinkler.dir/
+  TARGET_FILE = Vinkler
+  TARGET_PDB = Vinkler.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target Analyzer
@@ -111,7 +148,7 @@ build Analyzer: CXX_EXECUTABLE_LINKER__Analyzer_Debug CMakeFiles/Analyzer.dir/An
 #############################################
 # Folder: /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug
 
-build all: phony Analyzer
+build all: phony Vinkler Analyzer
 
 # =============================================================================
 # Built-in targets
