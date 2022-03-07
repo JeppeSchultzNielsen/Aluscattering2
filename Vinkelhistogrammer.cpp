@@ -60,15 +60,15 @@ int main(int argc, char *argv[]){
     ofstream myfile ("peakpositioner.txt");
     myfile << "Theta\tE\n";
 
-    Int_t start = 80;
+    Int_t start = 60;
     Int_t end = 120;
-    double step = 1;
+    double step = 0.5;
 
     //Lav et histogram
     TH1 *h1 = new TH1I("h1", "Histogram ved scatteringangle 80 grader", 2000, 0.0, 1999);
 
     //loop over alle vinkler
-    for(Int_t run = start; run<end; run += step) {
+    for(double run = start; run<end; run += step) {
         for (Int_t i = 0; i < entries; i++) {
             t->GetEntry(i);
             for (Int_t j = 0; j < mul; j++) {
