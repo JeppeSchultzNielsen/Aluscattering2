@@ -18,6 +18,10 @@
 #include <libconfig.h++>
 #include "include/Hit.h"
 #include "TH1.h"
+#include "TF1.h"
+#include "TSpectrum.h"
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 using namespace AUSA;
@@ -26,7 +30,14 @@ using namespace AUSA::Sort;
 using namespace AUSA::EnergyLoss;
 using namespace AUSA::Constants;
 using namespace libconfig;
+using namespace ROOT;
 
+double gauss4(double *x, double *par){
+    double fitval = par[0]*Math::exp(-(x[0]-par[1])*(x[0]-par[1])/par[2])+
+            par[3]*Math::exp(-(x[0]-par[4])*(x[0]-par[4])/par[5])+
+            par[6]*Math::exp(-(x[0]-par[7])*(x[0]-par[7])/par[8]);
+    return fitval;
+}
 
 int main(int argc, char *argv[]){
     //skab en pointer til den rootfil, jeg lige har lavet.
@@ -45,16 +56,40 @@ int main(int argc, char *argv[]){
     auto entries = t->GetEntries();
     cout << "Entries: " << entries << endl;
 
+    //skriv peak positioner til en .txt fil
+    ofstream myfile ("peakpositioner.txt");
+    myfile << "Theta\tE\n";
+
+    Int_t start = 80;
+    Int_t end = 120;
+    double step = 1;
+
     //Lav et histogram
-    TH1* h1 = new TH1I("h1", "Histogram ved scatteringangle 80 grader", 2000, 0.0, 12000);
-    for (Int_t i=0; i<entries; i++){
-        t->GetEntry(i);
-        for(Int_t j=0; j<mul; j++) {
-            if (scatterAngle[j] > 80 && scatterAngle[j] < 81) {
-                h1->Fill(E[j]);
-            } else {};
+    TH1 *h1 = new TH1I("h1", "Histogram ved scatteringangle 80 grader", 2000, 0.0, 1999);
+
+    //loop over alle vinkler
+    for(Int_t run = start; run<end; run += step) {
+        for (Int_t i = 0; i < entries; i++) {
+            t->GetEntry(i);
+            for (Int_t j = 0; j < mul; j++) {
+                if (scatterAngle[j] > run && scatterAngle[j] < run+step) {
+                    h1->Fill(E[j]);
+                }
+            }
         }
+        //Find peaks med inspiration fra https://root.cern/doc/master/peaks_8C.html
+        //TSpectrum kan finde peaks
+        auto *s = new TSpectrum(100);
+        Int_t nfound = s->Search(h1, 2.5, "", 0.05);
+
+        //gem de gældende peaks
+        auto xpeaks = s->GetPositionX();
+        for (int p = 0; p < nfound; p++) {
+            Double_t xp = xpeaks[p];
+            myfile << to_string(run) + "\t" + to_string(xp) + "\n";
+        }
+        cout << "Run: " << run << endl;
+        h1->Reset();
     }
-    //Fit 4 Gausser til det.
-    TF1  *f1 = new TF1("f1","sin(x)/x",0,10);
+    myfile.close();
 }
