@@ -22,6 +22,7 @@
 #include "TSpectrum.h"
 #include <iostream>
 #include <fstream>
+#include "TVirtualFitter.h"
 
 using namespace std;
 using namespace AUSA;
@@ -32,11 +33,32 @@ using namespace AUSA::Constants;
 using namespace libconfig;
 using namespace ROOT;
 
-double gauss4(double *x, double *par){
-    double fitval = par[0]*Math::exp(-(x[0]-par[1])*(x[0]-par[1])/par[2])+
-            par[3]*Math::exp(-(x[0]-par[4])*(x[0]-par[4])/par[5])+
-            par[6]*Math::exp(-(x[0]-par[7])*(x[0]-par[7])/par[8]);
-    return fitval;
+double gaussSum(double *x, double *par){
+    int npeaks = par[0];
+    double_t result;
+    for (Int_t p=0;p<npeaks;p++) {
+        Double_t norm = par[3 * p]; // "height" or "area"
+        Double_t mean = par[3 * p + 1];
+        Double_t sigma = par[3 * p + 2];
+        result += norm*TMath::Gaus(x[0],mean,sigma);
+    }
+    return result;
+}
+
+bool AreSame(double a, double b)
+{
+    return fabs(a - b) < 0.1;
+}
+
+//løber igennem listen af angles og returnerer true hvis vinklen er i listen
+tuple<bool,int> findAngle(double toSearch[], double angle){
+    double arraySize = 10000;
+    for (int i = 0; i<arraySize; i++){
+        if(AreSame(toSearch[i],angle)){
+            return make_tuple(true,i);
+        }
+    }
+    return make_tuple(false,-1);
 }
 
 int main(int argc, char *argv[]){
@@ -47,8 +69,8 @@ int main(int argc, char *argv[]){
 
     //Skab variable som værdier kan loades ned i. Associer dem med branches i træet, så den i. entry bliver lagt
     //deri når vi kalder getEntry(i). Print antallet af entries i træet.
-    double E[100];
-    double scatterAngle[100];
+    double_t E[100];
+    double_t scatterAngle[100];
     UInt_t mul;
     t->SetBranchAddress("E",&E);
     t->SetBranchAddress("scatterAngle",&scatterAngle);
@@ -60,36 +82,89 @@ int main(int argc, char *argv[]){
     ofstream myfile ("peakpositioner.txt");
     myfile << "Theta\tE\n";
 
-    Int_t start = 60;
-    Int_t end = 120;
-    double step = 0.5;
+    //Lav et array af histogrammer og vinkler på tilsvarende indekser
+    int arraySize = 10000;
+    TH1I *histograms[arraySize];
+    double_t angles[arraySize];
+    int lastPrinted = 0;
 
-    //Lav et histogram
-    TH1 *h1 = new TH1I("h1", "Histogram ved scatteringangle 80 grader", 2000, 0.0, 1999);
+    char name[120];
+    char title[120];
 
-    //loop over alle vinkler
-    for(double run = start; run<end; run += step) {
-        for (Int_t i = 0; i < entries; i++) {
-            t->GetEntry(i);
-            for (Int_t j = 0; j < mul; j++) {
-                if (scatterAngle[j] > run && scatterAngle[j] < run+step) {
-                    h1->Fill(E[j]);
-                }
+    //loop over alle entries i root filen
+    for (Int_t i = 0; i < entries; i++) {
+        if(i%100000 == 0){
+            cout << "i: " << i << endl;
+        }
+
+        //hent entry
+        t->GetEntry(i);
+        //loop over alle hits i denne entry
+        for (Int_t j = 0; j < mul; j++) {
+            //hvis vi ikke har set denne vinkel før skal vi lave et nyt histogram for denne vinkel.
+            double currentAngle = 0;// scatterAngle[j];
+            currentAngle += scatterAngle[j];
+            auto boolAndIndex = findAngle(angles,currentAngle);
+            if(!get<0>(boolAndIndex)){
+                //skab nyt histogram til at indeholde events ved denne vinkel
+                sprintf(name,"%f",currentAngle);
+                sprintf(title,"%f",currentAngle);
+                histograms[lastPrinted] = new TH1I(name, title, 2000, 0.0, 1999);
+                //læg vinklen ind i vinkelarray ved samme index
+                angles[lastPrinted] = currentAngle;
+                //fyld energien ind i det skabte histogram
+                histograms[lastPrinted] -> Fill(E[j]);
+                //læg en til lastPrinted, så vi er klar til næste gang der er en ny vinkel
+                lastPrinted ++;
+                //printf(angleString);
+            }
+            else{
+                //der fandtes allerede et histogram for denne vinkel.
+                histograms[get<1>(boolAndIndex)] -> Fill(E[j]);
             }
         }
+    }
+    cout << "Lastangle: " << lastPrinted << endl;
+    cout << "Lastangle: " << angles[7] << endl;
+    //nu skal jeg finde peaks i alle histogrammerne. Jeg looper over histogrammerne:
+    for(int i = 0; i < lastPrinted; i++){
         //Find peaks med inspiration fra https://root.cern/doc/master/peaks_8C.html
         //TSpectrum kan finde peaks
         auto *s = new TSpectrum(100);
-        Int_t nfound = s->Search(h1, 2.5, "", 0.05);
+        TH1I *currentHist = histograms[i];
+        Int_t nfound = s->Search(currentHist, 2.5, "", 0.1);
 
-        //gem de gældende peaks
         auto xpeaks = s->GetPositionX();
-        for (int p = 0; p < nfound; p++) {
-            Double_t xp = xpeaks[p];
-            myfile << to_string(run) + "\t" + to_string(xp) + "\n";
+
+        //For hvert peak skal jeg bruge 3 parametre til at bestemme en gauss. (og så skal jeg give en mere til
+        //funktionen for at fortælle den, hvor mange peaks der er, men den fixes til npeaks).
+        double par[nfound*3+1];
+        //gider ikke dem der har mange peaks
+        if(nfound < 8){
+            for (int p = 0; p < nfound; p++) {
+                Double_t xp = xpeaks[p];
+                Int_t bin = currentHist->GetXaxis()->FindBin(xp);
+                Double_t yp = currentHist->GetBinContent(bin);
+                par[1+3*p]=yp;
+                par[2+3*p]=xp;
+                par[3+3*p]=30;
+                myfile << to_string(angles[i]) + "\t" + to_string(xp) + "\n";
+            }
+            TF1 *fit = new TF1("fit", gaussSum,0,1000,3*nfound+1);
+            //TVirtualFitter tillader vist at vi kan have flere parametre?
+            TVirtualFitter::Fitter(currentHist,10+3*nfound);
+            fit->SetParameters(par);
+            fit->FixParameter(0,nfound);
+            fit->SetNpx(2000);
+            currentHist->Fit("fit");
+            for (int k = 0; k < nfound; k++){
+                myfile << to_string(angles[i]) + "\t" + to_string(fit->GetParameter(2+3*k)) + "\n";
+            }
+            if(i == 10){
+                TFile *myfile = TFile::Open("file.root", "RECREATE");
+                myFile->WriteObject(&currentHist, "MyObject");
+            }
         }
-        cout << "Run: " << run << endl;
-        h1->Reset();
     }
     myfile.close();
 }
