@@ -1,38 +1,22 @@
 #include <iostream>
 #include <string>
-#include <ausa/json/IO.h>
-#include <ausa/sort/analyzer/AbstractSortedAnalyzer.h>
-#include <ausa/sort/SortedReader.h>
-#include <ausa/util/StringUtil.h>
 #include <ausa/util/FileUtil.h>
-#include <ausa/setup/DoubleSidedSiliconDetector.h>
-#include <ausa/setup/SingleSidedSiliconDetector.h>
 #include <ausa/util/DynamicBranchVector.h>
-#include <ausa/eloss/Ion.h>
 #include <ausa/eloss/Default.h>
-#include <ausa/constants/Mass.h>
-#include <ausa/output/OutputConvenience.h>
 #include <Math/Vector3D.h>
 #include <TROOT.h>
-#include <ctime>
-#include <libconfig.h++>
-#include "include/Hit.h"
 #include "TH1.h"
 #include "TF1.h"
 #include "TSpectrum.h"
-#include <iostream>
 #include <fstream>
-#include "TVirtualFitter.h"
-#include "TCanvas.h"
 #include "TFitResult.h"
+#include "include/runner2.h"
+#include <regex>
 
 using namespace std;
 using namespace AUSA;
 using namespace ROOT::Math;
-using namespace AUSA::Sort;
 using namespace AUSA::EnergyLoss;
-using namespace AUSA::Constants;
-using namespace libconfig;
 using namespace ROOT;
 
 double gaussSum(double *x, double *par){
@@ -63,9 +47,12 @@ tuple<bool,int> findAngle(double toSearch[], double angle){
     return make_tuple(false,-1);
 }
 
-int main(int argc, char *argv[]){
-    //skab en pointer til den rootfil, jeg lige har lavet.
-    TFile *myFile = TFile::Open("lio.root");
+void createTxt(string in){
+    //energien denne fil blev optaget ved er givet i dens titel
+    int energy = stoi(regex_replace(in, regex(R"([\D])"), ""));
+    //skab en pointer til root-filen der er blevet lavet af analyse.
+    string analyzed = "analyzed/"+regex_replace(in, regex(R"([\D])"), "") + "a.root";
+    TFile *myFile = TFile::Open(analyzed.c_str());
     //Hent træet
     TTree *t = (TTree*)myFile->Get("a");
 
@@ -81,7 +68,8 @@ int main(int argc, char *argv[]){
     cout << "Entries: " << entries << endl;
 
     //skriv peak positioner til en .txt fil
-    ofstream myfile ("peakpositioner.txt");
+    string saveto = "peaks/"+regex_replace(in, regex(R"([\D])"), "")+".txt";
+    ofstream myfile (saveto);
     myfile << "Theta\tE\n";
 
     //Lav et array af histogrammer og vinkler på tilsvarende indekser
@@ -111,7 +99,7 @@ int main(int argc, char *argv[]){
                 //skab nyt histogram til at indeholde events ved denne vinkel
                 sprintf(name,"%f",currentAngle);
                 sprintf(title,"%f",currentAngle);
-                histograms[lastPrinted] = new TH1I(name, title, 2000, 0.0, 1999);
+                histograms[lastPrinted] = new TH1I(name, title, energy, 0.0, energy-1);
                 //læg vinklen ind i vinkelarray ved samme index
                 angles[lastPrinted] = currentAngle;
                 //fyld energien ind i det skabte histogram
@@ -126,8 +114,6 @@ int main(int argc, char *argv[]){
             }
         }
     }
-    cout << "Lastangle: " << lastPrinted << endl;
-    cout << "Lastangle: " << angles[7] << endl;
     int nconverged = 0;
     int ntot = 0;
     //nu skal jeg finde peaks i alle histogrammerne. Jeg looper over histogrammerne:
@@ -159,7 +145,7 @@ int main(int argc, char *argv[]){
                     par[3 + 3 * p] = 20;
                     myfile << to_string(angles[i]) + "\t" + to_string(xp) + "\n";
                 }
-                TF1 *fit = new TF1("fit", gaussSum, 0, 2000, 1 + 3 * nfound);
+                TF1 *fit = new TF1("fit", gaussSum, 0, energy, 1 + 3 * nfound);
                 //TVirtualFitter tillader vist at vi kan have flere parametre?
                 //TVirtualFitter::Fitter(currentHist,10+3*nfound);
                 fit->SetParameters(par);
@@ -171,12 +157,6 @@ int main(int argc, char *argv[]){
                     for (int k = 0; k < nfound; k++) {
                         myfile << to_string(angles[i]) + "\t" + to_string(fit->GetParameter(2 + 3 * k)) + "\n";
                     }
-                }
-                //vi kan lige gemme et histogram hvis det er
-                if (i == 148) {
-                    TFile output("file.root", "RECREATE");
-                    output.cd();
-                    currentHist->Write();
                 }
             }
         }

@@ -17,6 +17,8 @@
 #include <ctime>
 #include <libconfig.h++>
 #include "include/Hit.h"
+#include "include/runner.h"
+#include <regex>
 
 using namespace std;
 using namespace AUSA;
@@ -278,18 +280,18 @@ public:
     }
 };
 
-// main metode. Bliver kørt når jeg starter programmet.
-int main(int argc, char *argv[]) {
+//essentielt main
+void createFile(string in){
     //læs setup og target filer.
     auto setup = JSON::readSetupFromJSON("setup/setup.json");
     auto target = JSON::readTargetFromJSON("setup/target.json");
 
-    string in = argv[1];
     SortedReader reader{*setup};
     reader.add(in);
     reader.setVerbose(true);
 
-    TString outfile = "lio.root";
+    string analyzed = "analyzed/"+regex_replace(in, std::regex(R"([\D])"), "") + "a.root";
+    TString outfile = analyzed;
 
     cout << "Reading from: " << in << endl;
     cout << "Printing to:  " << outfile << endl;
@@ -298,6 +300,4 @@ int main(int argc, char *argv[]) {
     auto analysis = make_shared<MyAnalysis>(target, &output);
     reader.attach(analysis);
     reader.run();
-
-    return 0;
 }

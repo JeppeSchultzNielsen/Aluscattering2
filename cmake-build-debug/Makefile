@@ -65,16 +65,6 @@ CMAKE_BINARY_DIR = /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -84,6 +74,16 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -142,12 +142,26 @@ Analyzer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Analyzer.dir/build.make CMakeFiles/Analyzer.dir/build
 .PHONY : Analyzer/fast
 
+#=============================================================================
+# Target rules for targets named Run
+
+# Build rule for target.
+Run: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Run
+.PHONY : Run
+
+# fast build rule for target.
+Run/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/build
+.PHONY : Run/fast
+
 Analyse.o: Analyse.cpp.o
 .PHONY : Analyse.o
 
 # target to build an object file
 Analyse.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Analyzer.dir/build.make CMakeFiles/Analyzer.dir/Analyse.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Analyse.cpp.o
 .PHONY : Analyse.cpp.o
 
 Analyse.i: Analyse.cpp.i
@@ -156,6 +170,7 @@ Analyse.i: Analyse.cpp.i
 # target to preprocess a source file
 Analyse.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Analyzer.dir/build.make CMakeFiles/Analyzer.dir/Analyse.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Analyse.cpp.i
 .PHONY : Analyse.cpp.i
 
 Analyse.s: Analyse.cpp.s
@@ -164,6 +179,7 @@ Analyse.s: Analyse.cpp.s
 # target to generate assembly for a file
 Analyse.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Analyzer.dir/build.make CMakeFiles/Analyzer.dir/Analyse.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Analyse.cpp.s
 .PHONY : Analyse.cpp.s
 
 Vinkelhistogrammer.o: Vinkelhistogrammer.cpp.o
@@ -172,6 +188,7 @@ Vinkelhistogrammer.o: Vinkelhistogrammer.cpp.o
 # target to build an object file
 Vinkelhistogrammer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Vinkler.dir/build.make CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.o
 .PHONY : Vinkelhistogrammer.cpp.o
 
 Vinkelhistogrammer.i: Vinkelhistogrammer.cpp.i
@@ -180,6 +197,7 @@ Vinkelhistogrammer.i: Vinkelhistogrammer.cpp.i
 # target to preprocess a source file
 Vinkelhistogrammer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Vinkler.dir/build.make CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.i
 .PHONY : Vinkelhistogrammer.cpp.i
 
 Vinkelhistogrammer.s: Vinkelhistogrammer.cpp.s
@@ -188,7 +206,32 @@ Vinkelhistogrammer.s: Vinkelhistogrammer.cpp.s
 # target to generate assembly for a file
 Vinkelhistogrammer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Vinkler.dir/build.make CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.s
 .PHONY : Vinkelhistogrammer.cpp.s
+
+run.o: run.cpp.o
+.PHONY : run.o
+
+# target to build an object file
+run.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/run.cpp.o
+.PHONY : run.cpp.o
+
+run.i: run.cpp.i
+.PHONY : run.i
+
+# target to preprocess a source file
+run.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/run.cpp.i
+.PHONY : run.cpp.i
+
+run.s: run.cpp.s
+.PHONY : run.s
+
+# target to generate assembly for a file
+run.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/run.cpp.s
+.PHONY : run.cpp.s
 
 # Help Target
 help:
@@ -199,6 +242,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Analyzer"
+	@echo "... Run"
 	@echo "... Vinkler"
 	@echo "... Analyse.o"
 	@echo "... Analyse.i"
@@ -206,6 +250,9 @@ help:
 	@echo "... Vinkelhistogrammer.o"
 	@echo "... Vinkelhistogrammer.i"
 	@echo "... Vinkelhistogrammer.s"
+	@echo "... run.o"
+	@echo "... run.i"
+	@echo "... run.s"
 .PHONY : help
 
 
