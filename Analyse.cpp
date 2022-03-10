@@ -285,7 +285,6 @@ int main(int argc, char *argv[]) {
     auto target = JSON::readTargetFromJSON("setup/target.json");
 
     string in = argv[1];
-    cout << "hej" << endl;
     SortedReader reader{*setup};
     reader.add(in);
     reader.setVerbose(true);

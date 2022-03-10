@@ -23,6 +23,7 @@
 #include <iostream>
 #include <fstream>
 #include "TVirtualFitter.h"
+#include "TCanvas.h"
 
 using namespace std;
 using namespace AUSA;
@@ -35,11 +36,12 @@ using namespace ROOT;
 
 double gaussSum(double *x, double *par){
     int npeaks = par[0];
+    npeaks = 1;
     double_t result;
     for (Int_t p=0;p<npeaks;p++) {
-        Double_t norm = par[3 * p]; // "height" or "area"
-        Double_t mean = par[3 * p + 1];
-        Double_t sigma = par[3 * p + 2];
+        Double_t norm = par[3 * p+1]; // "height" or "area"
+        Double_t mean = par[3 * p + 2];
+        Double_t sigma = par[3 * p + 3];
         result += norm*TMath::Gaus(x[0],mean,sigma);
     }
     return result;
@@ -147,12 +149,12 @@ int main(int argc, char *argv[]){
                 Double_t yp = currentHist->GetBinContent(bin);
                 par[1+3*p]=yp;
                 par[2+3*p]=xp;
-                par[3+3*p]=30;
+                par[3+3*p]=10;
                 myfile << to_string(angles[i]) + "\t" + to_string(xp) + "\n";
             }
-            TF1 *fit = new TF1("fit", gaussSum,0,1000,3*nfound+1);
+            TF1 *fit = new TF1("fit", gaussSum,0,2000, 1+3*nfound);
             //TVirtualFitter tillader vist at vi kan have flere parametre?
-            TVirtualFitter::Fitter(currentHist,10+3*nfound);
+            //TVirtualFitter::Fitter(currentHist,10+3*nfound);
             fit->SetParameters(par);
             fit->FixParameter(0,nfound);
             fit->SetNpx(2000);
@@ -160,9 +162,22 @@ int main(int argc, char *argv[]){
             for (int k = 0; k < nfound; k++){
                 myfile << to_string(angles[i]) + "\t" + to_string(fit->GetParameter(2+3*k)) + "\n";
             }
-            if(i == 10){
-                TFile *myfile = TFile::Open("file.root", "RECREATE");
-                myFile->WriteObject(&currentHist, "MyObject");
+            if(i == 50){
+                auto can = new TCanvas("t","t",800,800);
+                TFile output("file.root", "RECREATE");
+                //can->cd();
+                //currentHist->Draw();
+                //TF1 *func = new TF1("fit", gaussSum,1500,2000, 1+3*nfound);
+                //func->SetParameters(par);
+                //func->Draw("SAME");
+                //TF1 *func = new TF1("func", "[0]*exp(-0.5*(x-[1])*(x-[1])/[2]/[2])",0,2000);
+                //func->SetNpx(2000);
+                //func->FixParameter(0,par[4]);
+                //func->FixParameter(1,par[5]);
+                //func->FixParameter(2,par[6]);
+                //currentHist->Fit("func");
+                output.cd();
+                currentHist->Write();
             }
         }
     }

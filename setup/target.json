@@ -7,12 +7,6 @@
  
 
   "layers" : [
-    {"material" : "C2N", "thickness" : "40nm", "active":true},
-    {"material" : "Carbon", "thickness" : "4nm", "active":true}      
-  ],
- 
-
-"materials" : [
-{"name":"C2N", "density": "2.26g/cm3", "Z":[7,6], "mass" : [" 12 g/mol", " 15 g/mol"], "stoichio" : [2, 1]}
+    {"material" : "Aluminium", "thickness" : "340nm", "active":true}      
   ]
 }
