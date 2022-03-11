@@ -135,36 +135,18 @@ CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o: \
  /usr/include/c++/9/bits/locale_facets.tcc \
  /usr/include/c++/9/bits/basic_ios.tcc \
  /usr/include/c++/9/bits/ostream.tcc /usr/include/c++/9/istream \
- /usr/include/c++/9/bits/istream.tcc /usr/local/include/ausa/json/IO.h \
- /usr/local/include/ausa/setup/Setup.h \
- /usr/local/include/ausa/setup/DoubleSidedDetector.h \
- /usr/local/include/ausa/setup/Detector.h \
- /usr/local/include/ausa/util/Deprecated.h \
- /usr/local/include/ausa/calibration/DetectorCalibration.h \
- /usr/local/include/ausa/calibration/LinearCalibration.h \
- /usr/include/c++/9/stdlib.h /usr/include/c++/9/cmath /usr/include/math.h \
- /usr/include/x86_64-linux-gnu/bits/math-vector.h \
- /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
- /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
- /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
- /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
- /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /usr/include/c++/9/algorithm /usr/include/c++/9/utility \
- /usr/include/c++/9/bits/stl_relops.h /usr/include/c++/9/bits/stl_algo.h \
- /usr/include/c++/9/bits/algorithmfwd.h \
- /usr/include/c++/9/bits/stl_heap.h /usr/include/c++/9/bits/stl_tempbuf.h \
+ /usr/include/c++/9/bits/istream.tcc \
+ /usr/local/include/ausa/util/FileUtil.h /usr/include/c++/9/vector \
  /usr/include/c++/9/bits/stl_construct.h \
- /usr/include/c++/9/bits/uniform_int_dist.h /usr/include/c++/9/limits \
- /usr/include/c++/9/vector /usr/include/c++/9/bits/stl_uninitialized.h \
+ /usr/include/c++/9/bits/stl_uninitialized.h \
  /usr/include/c++/9/bits/stl_vector.h \
  /usr/include/c++/9/bits/stl_bvector.h /usr/include/c++/9/bits/vector.tcc \
- /usr/include/c++/9/memory /usr/include/c++/9/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/9/memory /usr/include/c++/9/bits/stl_tempbuf.h \
+ /usr/include/c++/9/bits/stl_raw_storage_iter.h \
  /usr/include/c++/9/ext/concurrence.h \
  /usr/include/c++/9/bits/uses_allocator.h \
- /usr/include/c++/9/bits/unique_ptr.h /usr/include/c++/9/tuple \
+ /usr/include/c++/9/bits/unique_ptr.h /usr/include/c++/9/utility \
+ /usr/include/c++/9/bits/stl_relops.h /usr/include/c++/9/tuple \
  /usr/include/c++/9/array /usr/include/c++/9/bits/invoke.h \
  /usr/include/c++/9/bits/shared_ptr.h \
  /usr/include/c++/9/bits/shared_ptr_base.h \
@@ -174,17 +156,17 @@ CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o: \
  /usr/include/c++/9/bits/shared_ptr_atomic.h \
  /usr/include/c++/9/bits/atomic_base.h \
  /usr/include/c++/9/bits/atomic_lockfree_defines.h \
- /usr/include/c++/9/backward/auto_ptr.h \
- /usr/local/include/root/TVector3.h /usr/local/include/root/TError.h \
+ /usr/include/c++/9/backward/auto_ptr.h /usr/local/include/root/TFile.h \
+ /usr/include/c++/9/atomic /usr/local/include/root/Compression.h \
+ /usr/local/include/root/RtypesCore.h \
  /usr/local/include/root/ROOT/RConfig.hxx \
  /usr/local/include/root/RVersion.h /usr/local/include/root/RConfigure.h \
- /usr/local/include/root/DllImport.h /usr/local/include/root/RtypesCore.h \
  /usr/local/include/root/DllImport.h /usr/include/c++/9/cstddef \
- /usr/include/c++/9/cstdarg /usr/include/c++/9/functional \
- /usr/include/c++/9/bits/std_function.h \
- /usr/local/include/root/TVector2.h /usr/local/include/root/TObject.h \
- /usr/local/include/root/Rtypes.h /usr/local/include/root/strtok.h \
- /usr/include/c++/9/cstring /usr/include/string.h /usr/include/strings.h \
+ /usr/local/include/root/TDirectoryFile.h \
+ /usr/local/include/root/TDirectory.h /usr/local/include/root/TNamed.h \
+ /usr/local/include/root/TObject.h /usr/local/include/root/Rtypes.h \
+ /usr/local/include/root/strtok.h /usr/include/c++/9/cstring \
+ /usr/include/string.h /usr/include/strings.h \
  /usr/local/include/root/strlcpy.h /usr/include/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
@@ -192,83 +174,41 @@ CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /usr/local/include/root/snprintf.h /usr/include/c++/9/atomic \
+ /usr/local/include/root/snprintf.h \
  /usr/local/include/root/TGenericClassInfo.h \
  /usr/local/include/root/TSchemaHelper.h \
  /usr/local/include/root/TIsAProxy.h \
  /usr/local/include/root/TVirtualIsAProxy.h \
  /usr/local/include/root/TStorage.h \
  /usr/local/include/root/TVersionCheck.h \
- /usr/local/include/root/RVersion.h /usr/local/include/root/TMatrix.h \
- /usr/local/include/root/TMatrixF.h /usr/local/include/root/TMatrixT.h \
- /usr/local/include/root/TMatrixTBase.h \
- /usr/local/include/root/TMathBase.h \
- /usr/local/include/root/TMatrixFBasefwd.h \
- /usr/local/include/root/TMatrixDBasefwd.h \
- /usr/local/include/root/TVectorFfwd.h \
- /usr/local/include/root/TVectorDfwd.h \
- /usr/local/include/root/TMatrixTUtils.h \
- /usr/local/include/root/TMatrixFfwd.h \
- /usr/local/include/root/TMatrixFUtils.h \
- /usr/local/include/root/TMatrixFUtilsfwd.h \
- /usr/local/include/root/TMath.h \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/float.h \
- /usr/include/c++/9/math.h \
- /usr/local/include/ausa/setup/SingleSidedDetector.h \
- /usr/local/include/ausa/setup/SignalCollection.h \
- /usr/local/include/ausa/setup/Telescope.h \
- /usr/local/include/ausa/setup/DoubleSidedDetector.h \
- /usr/local/include/ausa/setup/SingleSidedDetector.h \
- /usr/local/include/ausa/calibration/Source.h \
- /usr/local/include/ausa/calibration/Isotope.h \
- /usr/local/include/ausa/setup/Target.h \
- /usr/local/include/ausa/eloss/Layer.h \
- /usr/local/include/ausa/eloss/Material.h \
- /usr/local/include/ausa/geometry/Volume.h \
- /usr/local/include/ausa/sort/analyzer/AbstractSortedAnalyzer.h \
- /usr/local/include/ausa/sort/analyzer/SortedAnalyzer.h \
- /usr/local/include/ausa/sort/output.h \
- /usr/local/include/ausa/output/GenericSetupOutput.h \
- /usr/local/include/ausa/util/Contract.h \
- /usr/local/include/ausa/output/GenericDoubleOutput.h \
- /usr/local/include/ausa/setup/Signal.h /usr/local/include/root/Rtypes.h \
- /usr/local/include/ausa/sort/SortedSingleOutput.h \
- /usr/local/include/ausa/sort/SortedOutput.h \
- /usr/local/include/ausa/output/CopyableOutput.h \
- /usr/local/include/ausa/output/GenericMultiHitOutput.h \
- /usr/include/c++/9/cassert /usr/include/assert.h \
- /usr/local/include/ausa/TFileWrapper.h /usr/local/include/root/TH1.h \
- /usr/local/include/root/TAxis.h /usr/local/include/root/TNamed.h \
- /usr/local/include/root/TString.h \
+ /usr/local/include/root/RVersion.h /usr/local/include/root/TString.h \
+ /usr/local/include/root/TMathBase.h /usr/include/c++/9/cmath \
+ /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+ /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+ /usr/include/c++/9/algorithm /usr/include/c++/9/bits/stl_algo.h \
+ /usr/include/c++/9/bits/algorithmfwd.h \
+ /usr/include/c++/9/bits/stl_heap.h \
+ /usr/include/c++/9/bits/uniform_int_dist.h /usr/include/c++/9/limits \
  /usr/local/include/root/ROOT/RStringView.hxx \
  /usr/include/c++/9/experimental/string_view \
  /usr/include/c++/9/experimental/bits/lfts_config.h \
  /usr/include/c++/9/experimental/bits/string_view.tcc \
- /usr/local/include/root/ROOT/TypeTraits.hxx \
- /usr/local/include/root/TAttAxis.h /usr/local/include/root/TArrayD.h \
- /usr/local/include/root/TArray.h /usr/local/include/root/TAttLine.h \
- /usr/local/include/root/TAttFill.h /usr/local/include/root/TAttMarker.h \
- /usr/local/include/root/TArrayC.h /usr/local/include/root/TArrayS.h \
- /usr/local/include/root/TArrayI.h /usr/local/include/root/TArrayF.h \
- /usr/local/include/root/Foption.h \
- /usr/local/include/root/ROOT/EExecutionPolicy.hxx \
- /usr/local/include/root/TFitResultPtr.h /usr/include/c++/9/cfloat \
- /usr/local/include/ausa/sort/SortedReader.h \
- /usr/local/include/ausa/sort/analyzer/AbstractSortedProvider.h \
- /usr/local/include/ausa/sort/analyzer/SortedProvider.h \
- /usr/local/include/ausa/output/GenericProvider.h \
- /usr/local/include/ausa/util/StringUtil.h \
- /usr/local/include/ausa/util/FileUtil.h /usr/local/include/root/TFile.h \
- /usr/local/include/root/Compression.h \
- /usr/local/include/root/TDirectoryFile.h \
- /usr/local/include/root/TDirectory.h /usr/local/include/root/TClass.h \
- /usr/local/include/root/TDictionary.h /usr/local/include/root/ESTLType.h \
- /usr/local/include/root/TObjArray.h \
+ /usr/local/include/root/ROOT/TypeTraits.hxx /usr/include/c++/9/cstdarg \
+ /usr/local/include/root/TClass.h /usr/local/include/root/TDictionary.h \
+ /usr/local/include/root/ESTLType.h /usr/local/include/root/TObjArray.h \
  /usr/local/include/root/TSeqCollection.h \
  /usr/local/include/root/TCollection.h \
  /usr/local/include/root/TIterator.h \
  /usr/local/include/root/TVirtualRWMutex.h \
- /usr/local/include/root/TVirtualMutex.h /usr/include/c++/9/iterator \
+ /usr/local/include/root/TVirtualMutex.h /usr/include/c++/9/cassert \
+ /usr/include/assert.h /usr/include/c++/9/iterator \
  /usr/include/c++/9/bits/stream_iterator.h /usr/include/c++/9/map \
  /usr/include/c++/9/bits/stl_tree.h /usr/include/c++/9/bits/stl_map.h \
  /usr/include/c++/9/bits/stl_multimap.h \
@@ -281,6 +221,7 @@ CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o: \
  /usr/local/include/root/Byteswap.h /usr/local/include/root/TDatime.h \
  /usr/local/include/root/TUrl.h \
  /usr/local/include/root/ROOT/RConcurrentHashColl.hxx \
+ /usr/local/include/root/Rtypes.h \
  /usr/local/include/root/ROOT/TRWSpinLock.hxx \
  /usr/local/include/root/ROOT/TSpinMutex.hxx \
  /usr/include/c++/9/condition_variable /usr/include/c++/9/chrono \
@@ -288,18 +229,18 @@ CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o: \
  /usr/include/c++/9/bits/parse_numbers.h \
  /usr/include/c++/9/bits/std_mutex.h \
  /usr/include/c++/9/bits/unique_lock.h /usr/include/c++/9/mutex \
- /usr/local/include/ausa/setup/DoubleSidedSiliconDetector.h \
- /usr/local/include/ausa/setup/SingleSidedSiliconDetector.h \
  /usr/local/include/ausa/util/DynamicBranchVector.h \
  /usr/local/include/ausa/util/BranchType.h \
  /usr/local/include/root/RVersion.h /usr/local/include/root/RtypesCore.h \
  /usr/local/include/root/TTree.h \
  /usr/local/include/root/ROOT/TIOFeatures.hxx \
+ /usr/local/include/root/TArrayD.h /usr/local/include/root/TArray.h \
+ /usr/local/include/root/TArrayI.h /usr/local/include/root/TAttFill.h \
+ /usr/local/include/root/TAttLine.h /usr/local/include/root/TAttMarker.h \
  /usr/local/include/root/TVirtualTreePlayer.h \
  /usr/local/include/root/TBranch.h \
  /usr/local/include/root/TBranchCacheInfo.h \
  /usr/local/include/root/TBits.h /usr/local/include/root/TClonesArray.h \
- /usr/local/include/ausa/eloss/Ion.h \
  /usr/local/include/ausa/eloss/Default.h \
  /usr/local/include/ausa/eloss/GEANTTabulation.h \
  /usr/local/include/ausa/eloss/StoppingPowerTabulation.h \
@@ -311,12 +252,6 @@ CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o: \
  /usr/local/include/ausa/eloss/EnergyLossRangeInverter.h \
  /usr/local/include/ausa/eloss/AbstractEnergyLossCalculator.h \
  /usr/local/include/ausa/eloss/EnergyLossCalculator.h \
- /usr/local/include/ausa/constants/Mass.h \
- /usr/local/include/ausa/output/OutputConvenience.h \
- /usr/local/include/ausa/raw/output.h \
- /usr/local/include/ausa/raw/RawDetectorOutput.h \
- /usr/local/include/ausa/raw/RawInputInterpreter.h \
- /usr/local/include/ausa/raw/RawSingleOutput.h \
  /usr/local/include/root/Math/Vector3D.h \
  /usr/local/include/root/Math/Vector3Dfwd.h \
  /usr/local/include/root/Math/GenVector/Cartesian3D.h \
@@ -341,12 +276,17 @@ CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o: \
  /usr/include/c++/9/bits/quoted_string.h /usr/include/c++/9/sstream \
  /usr/include/c++/9/bits/sstream.tcc \
  /usr/local/include/root/Math/GenVector/CoordinateSystemTags.h \
- /usr/local/include/root/TROOT.h /usr/include/libconfig.h++ \
- /home/jeppe/devel/projects/Aluscattering2/include/Hit.h \
- /usr/local/include/root/TLorentzVector.h \
- /usr/local/include/root/TVector3.h /usr/local/include/root/TRotation.h \
- /home/jeppe/devel/projects/Aluscattering2/include/ParticleType.h \
+ /usr/local/include/root/TROOT.h /usr/local/include/root/TH1.h \
+ /usr/local/include/root/TAxis.h /usr/local/include/root/TAttAxis.h \
+ /usr/local/include/root/TArrayC.h /usr/local/include/root/TArrayS.h \
+ /usr/local/include/root/TArrayF.h /usr/local/include/root/Foption.h \
+ /usr/local/include/root/ROOT/EExecutionPolicy.hxx \
+ /usr/local/include/root/TVectorFfwd.h \
+ /usr/local/include/root/TVectorDfwd.h \
+ /usr/local/include/root/TFitResultPtr.h /usr/include/c++/9/cfloat \
+ /usr/lib/gcc/x86_64-linux-gnu/9/include/float.h \
  /usr/local/include/root/TF1.h /usr/local/include/root/RConfigure.h \
+ /usr/include/c++/9/functional /usr/include/c++/9/bits/std_function.h \
  /usr/local/include/root/TFormula.h \
  /usr/local/include/root/TInterpreter.h \
  /usr/local/include/root/TInterpreterValue.h /usr/include/c++/9/list \
@@ -354,34 +294,39 @@ CMakeFiles/Vinkler.dir/Vinkelhistogrammer.cpp.o: \
  /usr/local/include/root/Math/Types.h \
  /usr/local/include/root/TMethodCall.h \
  /usr/local/include/root/TF1AbsComposition.h \
+ /usr/local/include/root/TMath.h /usr/local/include/root/TError.h \
+ /usr/local/include/root/DllImport.h /usr/include/c++/9/math.h \
  /usr/local/include/root/Math/Types.h \
  /usr/local/include/root/Math/ParamFunctor.h \
  /usr/local/include/root/TSpectrum.h /usr/include/c++/9/fstream \
  /usr/include/x86_64-linux-gnu/c++/9/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/9/bits/c++io.h \
- /usr/include/c++/9/bits/fstream.tcc \
- /usr/local/include/root/TVirtualFitter.h \
- /usr/local/include/root/TCanvas.h /usr/local/include/root/TPad.h \
- /usr/local/include/root/TVirtualPad.h /usr/local/include/root/TAttPad.h \
- /usr/local/include/root/TQObject.h \
- /usr/local/include/root/TVirtualQConnection.h \
- /usr/local/include/root/GuiTypes.h /usr/include/c++/9/climits \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
- /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
- /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
- /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
- /usr/local/include/root/Buttons.h /usr/local/include/root/TAttBBox2D.h \
- /usr/local/include/root/TAttCanvas.h \
- /usr/local/include/root/TFitResult.h \
+ /usr/include/c++/9/bits/fstream.tcc /usr/local/include/root/TFitResult.h \
  /usr/local/include/root/Fit/FitResult.h \
  /usr/local/include/root/Math/IFunctionfwd.h \
  /usr/local/include/root/Math/IParamFunctionfwd.h \
  /usr/local/include/root/TMatrixDSym.h \
  /usr/local/include/root/TMatrixTSym.h \
+ /usr/local/include/root/TMatrixTBase.h \
+ /usr/local/include/root/TMatrixFBasefwd.h \
+ /usr/local/include/root/TMatrixDBasefwd.h \
+ /usr/local/include/root/TMatrixTUtils.h \
  /usr/local/include/root/TMatrixDSymfwd.h \
  /usr/local/include/root/TMatrixDUtils.h \
- /usr/local/include/root/TMatrixDUtilsfwd.h
+ /usr/local/include/root/TMatrixDUtilsfwd.h \
+ /home/jeppe/devel/projects/Aluscattering2/include/runner2.h \
+ /usr/include/c++/9/regex /usr/include/c++/9/bitset \
+ /usr/include/c++/9/stack /usr/include/c++/9/deque \
+ /usr/include/c++/9/bits/stl_deque.h /usr/include/c++/9/bits/deque.tcc \
+ /usr/include/c++/9/bits/stl_stack.h \
+ /usr/include/c++/9/bits/regex_constants.h \
+ /usr/include/c++/9/bits/regex_error.h \
+ /usr/include/c++/9/bits/regex_automaton.h \
+ /usr/include/c++/9/bits/regex_automaton.tcc \
+ /usr/include/c++/9/bits/regex_scanner.h \
+ /usr/include/c++/9/bits/regex_scanner.tcc \
+ /usr/include/c++/9/bits/regex_compiler.h \
+ /usr/include/c++/9/bits/regex_compiler.tcc \
+ /usr/include/c++/9/bits/regex.h /usr/include/c++/9/bits/regex.tcc \
+ /usr/include/c++/9/bits/regex_executor.h \
+ /usr/include/c++/9/bits/regex_executor.tcc

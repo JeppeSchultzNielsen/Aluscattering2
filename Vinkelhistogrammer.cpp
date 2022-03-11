@@ -31,23 +31,23 @@ double gaussSum(double *x, double *par){
     return result;
 }
 
-bool AreSame(double a, double b)
+bool AreSame(double a, double b, double precision)
 {
     return fabs(a - b) < 0.5;
 }
 
 //løber igennem listen af angles og returnerer true hvis vinklen er i listen
-tuple<bool,int> findAngle(double toSearch[], double angle){
+tuple<bool,int> findAngle(double toSearch[], double angle, double precision){
     double arraySize = 10000;
     for (int i = 0; i<arraySize; i++){
-        if(AreSame(toSearch[i],angle)){
+        if(AreSame(toSearch[i],angle,precision)){
             return make_tuple(true,i);
         }
     }
     return make_tuple(false,-1);
 }
 
-void createTxt(string in){
+void createTxt(string in, double sigma, double precision){
     //energien denne fil blev optaget ved er givet i dens titel
     int energy = stoi(regex_replace(in, regex(R"([\D])"), ""));
     //skab en pointer til root-filen der er blevet lavet af analyse.
@@ -73,9 +73,8 @@ void createTxt(string in){
     myfile << "Theta\tE\n";
 
     //Lav et array af histogrammer og vinkler på tilsvarende indekser
-    int arraySize = 10000;
-    TH1I *histograms[arraySize];
-    double_t angles[arraySize];
+    TH1I *histograms[10000] = {};
+    double_t angles[10000] = {};
     int lastPrinted = 0;
 
     char name[120];
@@ -94,7 +93,7 @@ void createTxt(string in){
             //hvis vi ikke har set denne vinkel før skal vi lave et nyt histogram for denne vinkel.
             double currentAngle = 0;// scatterAngle[j];
             currentAngle += scatterAngle[j];
-            auto boolAndIndex = findAngle(angles,currentAngle);
+            auto boolAndIndex = findAngle(angles,currentAngle, precision);
             if(!get<0>(boolAndIndex)){
                 //skab nyt histogram til at indeholde events ved denne vinkel
                 sprintf(name,"%f",currentAngle);
@@ -127,7 +126,7 @@ void createTxt(string in){
         if (currentHist->GetEntries() > 1000) {
             ntot += 1;
             auto *s = new TSpectrum(100);
-            Int_t nfound = s->Search(currentHist, 10, "", 0.1);
+            Int_t nfound = s->Search(currentHist, sigma, "", 0.1);
 
             auto xpeaks = s->GetPositionX();
 
@@ -142,7 +141,7 @@ void createTxt(string in){
                     Double_t yp = currentHist->GetBinContent(bin);
                     par[1 + 3 * p] = 3 * yp;
                     par[2 + 3 * p] = xp;
-                    par[3 + 3 * p] = 20;
+                    par[3 + 3 * p] = sigma;
                     myfile << to_string(angles[i]) + "\t" + to_string(xp) + "\n";
                 }
                 TF1 *fit = new TF1("fit", gaussSum, 0, energy, 1 + 3 * nfound);

@@ -32,8 +32,9 @@ int main(int argc, char *argv[]){
         return EXIT_FAILURE;
     }
 
-    for(int k = 2; k < 3; k++){
+    for(int k = 0; k < i; k++){
         createFile("match/" + adresses[k]);
-        createTxt(adresses[k]);
+
+        createTxt(adresses[k], 20, 0.5);
     }
 }
