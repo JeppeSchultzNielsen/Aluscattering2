@@ -69,8 +69,8 @@ void createTxt(string in, double sigma, double precision){
 
     //skriv peak positioner til en .txt fil
     string saveto = "peaks/"+regex_replace(in, regex(R"([\D])"), "")+".txt";
-    ofstream myfile (saveto);
-    myfile << "Theta\tE\n";
+    ofstream mytxt (saveto);
+    mytxt << "Theta\tE\tEerr\n";
 
     //Lav et array af histogrammer og vinkler på tilsvarende indekser
     TH1I *histograms[10000] = {};
@@ -115,15 +115,17 @@ void createTxt(string in, double sigma, double precision){
     }
     int nconverged = 0;
     int ntot = 0;
+    string histRoot = "peakHists/"+to_string(energy) + ".root";
+    TFile output(histRoot.c_str(), "RECREATE");
     //nu skal jeg finde peaks i alle histogrammerne. Jeg looper over histogrammerne:
     for(int i = 0; i < lastPrinted; i++) {
         //Find peaks med inspiration fra https://root.cern/doc/master/peaks_8C.html
         //TSpectrum kan finde peaks
         TH1I *currentHist = histograms[i];
 
-        //vi vil kun gøre det følgende, hvis vi har mere end 1000 entries i histogrammet, ellers giver det ikke
+        //vi vil kun gøre det følgende, hvis vi har mere end 5000 entries i histogrammet, ellers giver det ikke
         //rigtigt mening.
-        if (currentHist->GetEntries() > 1000) {
+        if (currentHist->GetEntries() > 5000) {
             ntot += 1;
             auto *s = new TSpectrum(100);
             Int_t nfound = s->Search(currentHist, sigma, "", 0.1);
@@ -142,7 +144,6 @@ void createTxt(string in, double sigma, double precision){
                     par[1 + 3 * p] = 3 * yp;
                     par[2 + 3 * p] = xp;
                     par[3 + 3 * p] = sigma;
-                    myfile << to_string(angles[i]) + "\t" + to_string(xp) + "\n";
                 }
                 TF1 *fit = new TF1("fit", gaussSum, 0, energy, 1 + 3 * nfound);
                 //TVirtualFitter tillader vist at vi kan have flere parametre?
@@ -151,10 +152,12 @@ void createTxt(string in, double sigma, double precision){
                 fit->FixParameter(0, nfound);
                 fit->SetNpx(2000);
                 TFitResultPtr fp = currentHist->Fit("fit","s && Q");
+                output.cd();
+                currentHist->Write();
                 if (fp->IsValid()) {
                     nconverged += 1;
                     for (int k = 0; k < nfound; k++) {
-                        myfile << to_string(angles[i]) + "\t" + to_string(fit->GetParameter(2 + 3 * k)) + "\n";
+                        mytxt << to_string(angles[i]) + "\t" + to_string(fp->Parameter(2 + 3 * k)) + "\t" + to_string(fp -> ParError(2+3*k)) + "\n";
                     }
                 }
             }
@@ -162,5 +165,5 @@ void createTxt(string in, double sigma, double precision){
     }
     cout << "Converged: " << nconverged << endl;
     cout << "Total: " << ntot << endl;
-    myfile.close();
+    mytxt.close();
 }

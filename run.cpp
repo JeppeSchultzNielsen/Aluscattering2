@@ -35,6 +35,6 @@ int main(int argc, char *argv[]){
     for(int k = 0; k < i; k++){
         createFile("match/" + adresses[k]);
 
-        createTxt(adresses[k], 20, 0.5);
+        createTxt(adresses[k], 10, 0.5);
     }
 }
