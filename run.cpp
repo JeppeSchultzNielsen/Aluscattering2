@@ -33,6 +33,7 @@ int main(int argc, char *argv[]){
     }
 
     for(int k = 0; k < i; k++){
+        //kan kommenteres ud hvis analyzen er kørt før
         createFile("match/" + adresses[k]);
 
         createTxt(adresses[k], 10, 0.5);

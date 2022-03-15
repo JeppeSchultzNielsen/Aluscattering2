@@ -65,6 +65,7 @@ void createTxt(string in, double sigma, double precision){
     t->SetBranchAddress("scatterAngle",&scatterAngle);
     t->SetBranchAddress("mul",&mul);
     auto entries = t->GetEntries();
+    cout << "Energy: " << energy << "keV " << endl;
     cout << "Entries: " << entries << endl;
 
     //skriv peak positioner til en .txt fil
@@ -82,8 +83,9 @@ void createTxt(string in, double sigma, double precision){
 
     //loop over alle entries i root filen
     for (Int_t i = 0; i < entries; i++) {
-        if(i%100000 == 0){
-            cout << "i: " << i << endl;
+        if(i%300000 == 0){
+            cout << "Sorting " << energy << "keV data: " << float(i)/float(entries)*100<< "%" << " \r";
+            cout.flush();
         }
 
         //hent entry
@@ -123,12 +125,17 @@ void createTxt(string in, double sigma, double precision){
         //TSpectrum kan finde peaks
         TH1I *currentHist = histograms[i];
 
+        if(i%10 == 0){
+            cout << "Fitting " << energy << "keV data: " << float(i)/float(lastPrinted)*100<< "%" << " \r";
+            cout.flush();
+        }
+
         //vi vil kun gøre det følgende, hvis vi har mere end 5000 entries i histogrammet, ellers giver det ikke
         //rigtigt mening.
-        if (currentHist->GetEntries() > 5000) {
+        if (currentHist->GetEntries() > 1000) {
             ntot += 1;
             auto *s = new TSpectrum(100);
-            Int_t nfound = s->Search(currentHist, sigma, "", 0.1);
+            Int_t nfound = s->Search(currentHist, sigma, "", 0.05);
 
             auto xpeaks = s->GetPositionX();
 
@@ -136,7 +143,7 @@ void createTxt(string in, double sigma, double precision){
             //funktionen for at fortælle den, hvor mange peaks der er, men den fixes til npeaks).
             double par[nfound * 3 + 1];
             //gider ikke dem der har mange peaks
-            if (nfound < 8) {
+            if (nfound < 9 ) {
                 for (int p = 0; p < nfound; p++) {
                     Double_t xp = xpeaks[p];
                     Int_t bin = currentHist->GetXaxis()->FindBin(xp);
@@ -146,15 +153,14 @@ void createTxt(string in, double sigma, double precision){
                     par[3 + 3 * p] = sigma;
                 }
                 TF1 *fit = new TF1("fit", gaussSum, 0, energy, 1 + 3 * nfound);
-                //TVirtualFitter tillader vist at vi kan have flere parametre?
-                //TVirtualFitter::Fitter(currentHist,10+3*nfound);
+
                 fit->SetParameters(par);
                 fit->FixParameter(0, nfound);
                 fit->SetNpx(2000);
                 TFitResultPtr fp = currentHist->Fit("fit","s && Q");
                 output.cd();
                 currentHist->Write();
-                if (fp->IsValid()) {
+                if(true) { // fp->IsValid()
                     nconverged += 1;
                     for (int k = 0; k < nfound; k++) {
                         mytxt << to_string(angles[i]) + "\t" + to_string(fp->Parameter(2 + 3 * k)) + "\t" + to_string(fp -> ParError(2+3*k)) + "\n";
@@ -165,5 +171,6 @@ void createTxt(string in, double sigma, double precision){
     }
     cout << "Converged: " << nconverged << endl;
     cout << "Total: " << ntot << endl;
+    cout << " " << endl;
     mytxt.close();
 }
