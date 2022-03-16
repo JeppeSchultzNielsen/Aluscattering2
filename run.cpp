@@ -32,7 +32,7 @@ int main(int argc, char *argv[]){
         return EXIT_FAILURE;
     }
 
-    for(int k = 0; k < i; k++){
+    for(int k = 0; k < 1; k++){
         //kan kommenteres ud hvis analyzen er kørt før
         createFile("match/" + adresses[k]);
 

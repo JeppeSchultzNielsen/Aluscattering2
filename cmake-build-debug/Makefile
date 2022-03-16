@@ -155,6 +155,19 @@ Run/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/build
 .PHONY : Run/fast
 
+#=============================================================================
+# Target rules for targets named Thickness
+
+# Build rule for target.
+Thickness: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Thickness
+.PHONY : Thickness
+
+# fast build rule for target.
+Thickness/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Thickness.dir/build.make CMakeFiles/Thickness.dir/build
+.PHONY : Thickness/fast
+
 Analyse.o: Analyse.cpp.o
 .PHONY : Analyse.o
 
@@ -181,6 +194,30 @@ Analyse.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Analyzer.dir/build.make CMakeFiles/Analyzer.dir/Analyse.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Analyse.cpp.s
 .PHONY : Analyse.cpp.s
+
+Thickness.o: Thickness.cpp.o
+.PHONY : Thickness.o
+
+# target to build an object file
+Thickness.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Thickness.dir/build.make CMakeFiles/Thickness.dir/Thickness.cpp.o
+.PHONY : Thickness.cpp.o
+
+Thickness.i: Thickness.cpp.i
+.PHONY : Thickness.i
+
+# target to preprocess a source file
+Thickness.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Thickness.dir/build.make CMakeFiles/Thickness.dir/Thickness.cpp.i
+.PHONY : Thickness.cpp.i
+
+Thickness.s: Thickness.cpp.s
+.PHONY : Thickness.s
+
+# target to generate assembly for a file
+Thickness.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Thickness.dir/build.make CMakeFiles/Thickness.dir/Thickness.cpp.s
+.PHONY : Thickness.cpp.s
 
 Vinkelhistogrammer.o: Vinkelhistogrammer.cpp.o
 .PHONY : Vinkelhistogrammer.o
@@ -243,10 +280,14 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... Analyzer"
 	@echo "... Run"
+	@echo "... Thickness"
 	@echo "... Vinkler"
 	@echo "... Analyse.o"
 	@echo "... Analyse.i"
 	@echo "... Analyse.s"
+	@echo "... Thickness.o"
+	@echo "... Thickness.i"
+	@echo "... Thickness.s"
 	@echo "... Vinkelhistogrammer.o"
 	@echo "... Vinkelhistogrammer.i"
 	@echo "... Vinkelhistogrammer.s"

@@ -17,7 +17,8 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3
 					]
 				}
 			],
@@ -34,7 +35,8 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3
 					]
 				}
 			],
@@ -52,6 +54,13 @@
 					"id" : "Run::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-Run-Debug-ba32fe074afe497a96a2.json",
 					"name" : "Run",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Thickness::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Thickness-Debug-4093d481c1dae0722db8.json",
+					"name" : "Thickness",
 					"projectIndex" : 0
 				},
 				{

@@ -37,9 +37,8 @@ bool AreSame(double a, double b, double precision)
 }
 
 //løber igennem listen af angles og returnerer true hvis vinklen er i listen
-tuple<bool,int> findAngle(double toSearch[], double angle, double precision){
-    double arraySize = 10000;
-    for (int i = 0; i<arraySize; i++){
+tuple<bool,int> findAngle(double toSearch[], double angle, double precision,int loopuntil){
+    for (int i = 0; i<loopuntil; i++){
         if(AreSame(toSearch[i],angle,precision)){
             return make_tuple(true,i);
         }
@@ -95,7 +94,7 @@ void createTxt(string in, double sigma, double precision){
             //hvis vi ikke har set denne vinkel før skal vi lave et nyt histogram for denne vinkel.
             double currentAngle = 0;// scatterAngle[j];
             currentAngle += scatterAngle[j];
-            auto boolAndIndex = findAngle(angles,currentAngle, precision);
+            auto boolAndIndex = findAngle(angles,currentAngle, precision,lastPrinted);
             if(!get<0>(boolAndIndex)){
                 //skab nyt histogram til at indeholde events ved denne vinkel
                 sprintf(name,"%f",currentAngle);
