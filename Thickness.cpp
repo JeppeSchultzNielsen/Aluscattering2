@@ -19,9 +19,9 @@ using namespace AUSA::EnergyLoss;
 using namespace ROOT;
 
 //løber igennem listen af angles og returnerer true hvis vinklen er i listen
-tuple<bool,int> findPixel(UInt_t toSearch[], UInt_t FI, UInt_t BI, UInt_t id, int loopuntil){
-    for (int i = 0; i<arraySize; i++){
-        if(AreSame(toSearch[i],angle,precision)){
+tuple<bool,int> findPixel(UInt_t toSearch[1000][3], UInt_t FI, UInt_t BI, UInt_t id, int loopuntil){
+    for (int i = 0; i<loopuntil; i++){
+        if(toSearch[i][0] == FI && toSearch[i][1] == BI && toSearch[i][2] == id){
             return make_tuple(true,i);
         }
     }
@@ -62,7 +62,7 @@ double thickness(string in){
     int lastPrinted = 0;
     for (Int_t i = 0; i < entries; i++) {
         if(i%300000 == 0){
-            cout << "Sorting " << energy << "keV data: " << float(i)/float(entries)*100<< "%" << " \r";
+            cout << "Finding 110 degrees in " << energy << "keV data: " << float(i)/float(entries)*100<< "%" << " \r";
             cout.flush();
         }
 
@@ -71,9 +71,16 @@ double thickness(string in){
         //loop over alle hits i denne entry
         for (Int_t j = 0; j < mul; j++) {
             //hvis vi ikke har set denne vinkel før skal vi lave et nyt histogram for denne vinkel.
-            double currentAngle = 0;// scatterAngle[j];
+            double currentAngle = 0;
+            UInt_t currentFI = 0;
+            UInt_t currentBI = 0;
+            UInt_t currentid = 0;
             currentAngle += scatterAngle[j];
-            auto boolAndIndex = findAngle(angles,currentAngle, precision);
+            currentFI += FI[j];
+            currentBI += BI[j];
+            currentid += id[j];
+            auto boolAndIndex = findPixel(pixelInfo,currentFI, currentBI, currentid, lastPrinted);
+            //case for hvis der endnu ikke findes et histogram for denne pixel.
             if(!get<0>(boolAndIndex)){
                 //skab nyt histogram til at indeholde events ved denne vinkel
                 sprintf(name,"%f",currentAngle);
