@@ -8,5 +8,6 @@ using namespace std;
 #define ALUSCATTERING_RUNNER_H
 
 void createFile(string in);
+double thickness(string in);
 
 #endif //ALUSCATTERING_RUNNER_H

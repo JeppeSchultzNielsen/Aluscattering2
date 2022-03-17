@@ -52,6 +52,17 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug && /home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
 # =============================================================================
 # Object build statements for EXECUTABLE target Vinkler
 
@@ -153,6 +164,14 @@ build CMakeFiles/Run.dir/Analyse.cpp.o: CXX_COMPILER__Run_Debug /home/jeppe/deve
   OBJECT_DIR = CMakeFiles/Run.dir
   OBJECT_FILE_DIR = CMakeFiles/Run.dir
 
+build CMakeFiles/Run.dir/Thickness.cpp.o: CXX_COMPILER__Run_Debug /home/jeppe/devel/projects/Aluscattering2/Thickness.cpp || cmake_object_order_depends_target_Run
+  DEFINES = -DAUSA_HAS_CURL -DAUSA_HAS_LIBCURL -DFMT_LOCALE -DHAVE_GSL
+  DEP_FILE = CMakeFiles/Run.dir/Thickness.cpp.o.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -I/home/jeppe/devel/projects/Aluscattering2/. -I/home/jeppe/devel/projects/Aluscattering2/match -I/home/jeppe/devel/projects/Aluscattering2/setup -isystem /usr/local/include/root
+  OBJECT_DIR = CMakeFiles/Run.dir
+  OBJECT_FILE_DIR = CMakeFiles/Run.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Run
@@ -161,7 +180,7 @@ build CMakeFiles/Run.dir/Analyse.cpp.o: CXX_COMPILER__Run_Debug /home/jeppe/deve
 #############################################
 # Link the executable Run
 
-build Run: CXX_EXECUTABLE_LINKER__Run_Debug CMakeFiles/Run.dir/run.cpp.o CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.o CMakeFiles/Run.dir/Analyse.cpp.o | /usr/local/lib/libAUSA.a /usr/local/lib/root/libPhysics.so.6.24.06 /usr/local/lib/root/libTreePlayer.so.6.24.06 /usr/local/lib/root/libGraf3d.so.6.24.06 /usr/local/lib/root/libGpad.so.6.24.06 /usr/local/lib/root/libGraf.so.6.24.06 /usr/local/lib/root/libTree.so.6.24.06 /usr/local/lib/root/libMathMore.so.6.24.06 /usr/local/lib/root/libSpectrum.so.6.24.06 /usr/local/lib/root/libHist.so.6.24.06 /usr/local/lib/root/libMatrix.so.6.24.06 /usr/local/lib/root/libMathCore.so.6.24.06 /usr/local/lib/root/libImt.so.6.24.06 /usr/local/lib/root/libMultiProc.so.6.24.06 /usr/local/lib/root/libNet.so.6.24.06 /usr/local/lib/root/libRIO.so.6.24.06 /usr/local/lib/root/libThread.so.6.24.06 /usr/local/lib/root/libCore.so.6.24.06 /usr/local/lib/root/libCling.so.6.24.06 /usr/lib/x86_64-linux-gnu/libfmt.a /usr/lib/x86_64-linux-gnu/libgsl.so /usr/lib/x86_64-linux-gnu/libgslcblas.so /usr/lib/x86_64-linux-gnu/libcurl.so
+build Run: CXX_EXECUTABLE_LINKER__Run_Debug CMakeFiles/Run.dir/run.cpp.o CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.o CMakeFiles/Run.dir/Analyse.cpp.o CMakeFiles/Run.dir/Thickness.cpp.o | /usr/local/lib/libAUSA.a /usr/local/lib/root/libPhysics.so.6.24.06 /usr/local/lib/root/libTreePlayer.so.6.24.06 /usr/local/lib/root/libGraf3d.so.6.24.06 /usr/local/lib/root/libGpad.so.6.24.06 /usr/local/lib/root/libGraf.so.6.24.06 /usr/local/lib/root/libTree.so.6.24.06 /usr/local/lib/root/libMathMore.so.6.24.06 /usr/local/lib/root/libSpectrum.so.6.24.06 /usr/local/lib/root/libHist.so.6.24.06 /usr/local/lib/root/libMatrix.so.6.24.06 /usr/local/lib/root/libMathCore.so.6.24.06 /usr/local/lib/root/libImt.so.6.24.06 /usr/local/lib/root/libMultiProc.so.6.24.06 /usr/local/lib/root/libNet.so.6.24.06 /usr/local/lib/root/libRIO.so.6.24.06 /usr/local/lib/root/libThread.so.6.24.06 /usr/local/lib/root/libCore.so.6.24.06 /usr/local/lib/root/libCling.so.6.24.06 /usr/lib/x86_64-linux-gnu/libfmt.a /usr/lib/x86_64-linux-gnu/libgsl.so /usr/lib/x86_64-linux-gnu/libgslcblas.so /usr/lib/x86_64-linux-gnu/libcurl.so
   FLAGS = -g
   LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib/root  /usr/local/lib/libAUSA.a  /usr/local/lib/root/libPhysics.so.6.24.06  /usr/local/lib/root/libTreePlayer.so.6.24.06  /usr/local/lib/root/libGraf3d.so.6.24.06  /usr/local/lib/root/libGpad.so.6.24.06  /usr/local/lib/root/libGraf.so.6.24.06  /usr/local/lib/root/libTree.so.6.24.06  /usr/local/lib/root/libMathMore.so.6.24.06  /usr/local/lib/root/libSpectrum.so.6.24.06  /usr/local/lib/root/libHist.so.6.24.06  /usr/local/lib/root/libMatrix.so.6.24.06  /usr/local/lib/root/libMathCore.so.6.24.06  /usr/local/lib/root/libImt.so.6.24.06  /usr/local/lib/root/libMultiProc.so.6.24.06  /usr/local/lib/root/libNet.so.6.24.06  /usr/local/lib/root/libRIO.so.6.24.06  /usr/local/lib/root/libThread.so.6.24.06  /usr/local/lib/root/libCore.so.6.24.06  -lpthread  /usr/local/lib/root/libCling.so.6.24.06  -Wl,--unresolved-symbols=ignore-in-object-files  /usr/lib/x86_64-linux-gnu/libfmt.a  /usr/lib/x86_64-linux-gnu/libgsl.so  /usr/lib/x86_64-linux-gnu/libgslcblas.so  /usr/lib/x86_64-linux-gnu/libcurl.so
   OBJECT_DIR = CMakeFiles/Run.dir
@@ -170,16 +189,39 @@ build Run: CXX_EXECUTABLE_LINKER__Run_Debug CMakeFiles/Run.dir/run.cpp.o CMakeFi
   TARGET_FILE = Run
   TARGET_PDB = Run.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target Thickness
+
 
 #############################################
-# Utility command for edit_cache
+# Order-only phony target for Thickness
 
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug && /home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
+build cmake_object_order_depends_target_Thickness: phony || CMakeFiles/Thickness.dir
 
-build edit_cache: phony CMakeFiles/edit_cache.util
+build CMakeFiles/Thickness.dir/Thickness.cpp.o: CXX_COMPILER__Thickness_Debug /home/jeppe/devel/projects/Aluscattering2/Thickness.cpp || cmake_object_order_depends_target_Thickness
+  DEFINES = -DAUSA_HAS_CURL -DAUSA_HAS_LIBCURL -DFMT_LOCALE -DHAVE_GSL
+  DEP_FILE = CMakeFiles/Thickness.dir/Thickness.cpp.o.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -I/home/jeppe/devel/projects/Aluscattering2/. -I/home/jeppe/devel/projects/Aluscattering2/match -I/home/jeppe/devel/projects/Aluscattering2/setup -isystem /usr/local/include/root
+  OBJECT_DIR = CMakeFiles/Thickness.dir
+  OBJECT_FILE_DIR = CMakeFiles/Thickness.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Thickness
+
+
+#############################################
+# Link the executable Thickness
+
+build Thickness: CXX_EXECUTABLE_LINKER__Thickness_Debug CMakeFiles/Thickness.dir/Thickness.cpp.o | /usr/local/lib/libAUSA.a /usr/local/lib/root/libPhysics.so.6.24.06 /usr/local/lib/root/libTreePlayer.so.6.24.06 /usr/local/lib/root/libGraf3d.so.6.24.06 /usr/local/lib/root/libGpad.so.6.24.06 /usr/local/lib/root/libGraf.so.6.24.06 /usr/local/lib/root/libTree.so.6.24.06 /usr/local/lib/root/libMathMore.so.6.24.06 /usr/local/lib/root/libSpectrum.so.6.24.06 /usr/local/lib/root/libHist.so.6.24.06 /usr/local/lib/root/libMatrix.so.6.24.06 /usr/local/lib/root/libMathCore.so.6.24.06 /usr/local/lib/root/libImt.so.6.24.06 /usr/local/lib/root/libMultiProc.so.6.24.06 /usr/local/lib/root/libNet.so.6.24.06 /usr/local/lib/root/libRIO.so.6.24.06 /usr/local/lib/root/libThread.so.6.24.06 /usr/local/lib/root/libCore.so.6.24.06 /usr/local/lib/root/libCling.so.6.24.06 /usr/lib/x86_64-linux-gnu/libfmt.a /usr/lib/x86_64-linux-gnu/libgsl.so /usr/lib/x86_64-linux-gnu/libgslcblas.so /usr/lib/x86_64-linux-gnu/libcurl.so
+  FLAGS = -g
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib/root  /usr/local/lib/libAUSA.a  /usr/local/lib/root/libPhysics.so.6.24.06  /usr/local/lib/root/libTreePlayer.so.6.24.06  /usr/local/lib/root/libGraf3d.so.6.24.06  /usr/local/lib/root/libGpad.so.6.24.06  /usr/local/lib/root/libGraf.so.6.24.06  /usr/local/lib/root/libTree.so.6.24.06  /usr/local/lib/root/libMathMore.so.6.24.06  /usr/local/lib/root/libSpectrum.so.6.24.06  /usr/local/lib/root/libHist.so.6.24.06  /usr/local/lib/root/libMatrix.so.6.24.06  /usr/local/lib/root/libMathCore.so.6.24.06  /usr/local/lib/root/libImt.so.6.24.06  /usr/local/lib/root/libMultiProc.so.6.24.06  /usr/local/lib/root/libNet.so.6.24.06  /usr/local/lib/root/libRIO.so.6.24.06  /usr/local/lib/root/libThread.so.6.24.06  /usr/local/lib/root/libCore.so.6.24.06  -lpthread  /usr/local/lib/root/libCling.so.6.24.06  -Wl,--unresolved-symbols=ignore-in-object-files  /usr/lib/x86_64-linux-gnu/libfmt.a  /usr/lib/x86_64-linux-gnu/libgsl.so  /usr/lib/x86_64-linux-gnu/libgslcblas.so  /usr/lib/x86_64-linux-gnu/libcurl.so
+  OBJECT_DIR = CMakeFiles/Thickness.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = Thickness
+  TARGET_PDB = Thickness.dbg
 
 # =============================================================================
 # Target aliases.
@@ -192,7 +234,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 #############################################
 # Folder: /home/jeppe/devel/projects/Aluscattering2/cmake-build-debug
 
-build all: phony Vinkler Analyzer Run
+build all: phony Vinkler Analyzer Run Thickness
 
 # =============================================================================
 # Built-in targets

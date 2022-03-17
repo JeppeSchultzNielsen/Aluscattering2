@@ -1,4 +1,4 @@
-/home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/jeppe/devel/projects/Aluscattering2
+/home/jeppe/clion-2021.3.3/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/jeppe/clion-2021.3.3/bin/ninja/linux/ninja -G Ninja /home/jeppe/devel/projects/Aluscattering2
 -- RapidJSON found. Headers: /usr/include
 -- Configuring done
 -- Generating done
