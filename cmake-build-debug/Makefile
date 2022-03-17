@@ -200,6 +200,7 @@ Thickness.o: Thickness.cpp.o
 
 # target to build an object file
 Thickness.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Thickness.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Thickness.dir/build.make CMakeFiles/Thickness.dir/Thickness.cpp.o
 .PHONY : Thickness.cpp.o
 
@@ -208,6 +209,7 @@ Thickness.i: Thickness.cpp.i
 
 # target to preprocess a source file
 Thickness.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Thickness.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Thickness.dir/build.make CMakeFiles/Thickness.dir/Thickness.cpp.i
 .PHONY : Thickness.cpp.i
 
@@ -216,6 +218,7 @@ Thickness.s: Thickness.cpp.s
 
 # target to generate assembly for a file
 Thickness.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Thickness.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Thickness.dir/build.make CMakeFiles/Thickness.dir/Thickness.cpp.s
 .PHONY : Thickness.cpp.s
 

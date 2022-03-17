@@ -60,9 +60,11 @@ void createTxt(string in, double sigma, double precision){
     double_t E[100];
     double_t scatterAngle[100];
     UInt_t mul;
+    UInt_t id[100];
     t->SetBranchAddress("E",&E);
     t->SetBranchAddress("scatterAngle",&scatterAngle);
     t->SetBranchAddress("mul",&mul);
+    t->SetBranchAddress("id",&id);
     auto entries = t->GetEntries();
     cout << "Energy: " << energy << "keV " << endl;
     cout << "Entries: " << entries << endl;
@@ -93,24 +95,27 @@ void createTxt(string in, double sigma, double precision){
         for (Int_t j = 0; j < mul; j++) {
             //hvis vi ikke har set denne vinkel før skal vi lave et nyt histogram for denne vinkel.
             double currentAngle = 0;// scatterAngle[j];
+            short currentDet = 0;
+            currentDet += id[j];
             currentAngle += scatterAngle[j];
-            auto boolAndIndex = findAngle(angles,currentAngle, precision,lastPrinted);
-            if(!get<0>(boolAndIndex)){
-                //skab nyt histogram til at indeholde events ved denne vinkel
-                sprintf(name,"%f",currentAngle);
-                sprintf(title,"%f",currentAngle);
-                histograms[lastPrinted] = new TH1I(name, title, energy, 0.0, energy-1);
-                //læg vinklen ind i vinkelarray ved samme index
-                angles[lastPrinted] = currentAngle;
-                //fyld energien ind i det skabte histogram
-                histograms[lastPrinted] -> Fill(E[j]);
-                //læg en til lastPrinted, så vi er klar til næste gang der er en ny vinkel
-                lastPrinted ++;
-                //printf(angleString);
-            }
-            else{
-                //der fandtes allerede et histogram for denne vinkel.
-                histograms[get<1>(boolAndIndex)] -> Fill(E[j]);
+            if (currentDet != 3) { //kan frasortere en detektor, 3 betyder ingen bliver frasorteret
+                auto boolAndIndex = findAngle(angles, currentAngle, precision, lastPrinted);
+                if (!get<0>(boolAndIndex)) {
+                    //skab nyt histogram til at indeholde events ved denne vinkel
+                    sprintf(name, "%f", currentAngle);
+                    sprintf(title, "%f", currentAngle);
+                    histograms[lastPrinted] = new TH1I(name, title, energy, 0.0, energy - 1);
+                    //læg vinklen ind i vinkelarray ved samme index
+                    angles[lastPrinted] = currentAngle;
+                    //fyld energien ind i det skabte histogram
+                    histograms[lastPrinted]->Fill(E[j]);
+                    //læg en til lastPrinted, så vi er klar til næste gang der er en ny vinkel
+                    lastPrinted++;
+                    //printf(angleString);
+                } else {
+                    //der fandtes allerede et histogram for denne vinkel.
+                    histograms[get<1>(boolAndIndex)]->Fill(E[j]);
+                }
             }
         }
     }
@@ -147,7 +152,7 @@ void createTxt(string in, double sigma, double precision){
                     Double_t xp = xpeaks[p];
                     Int_t bin = currentHist->GetXaxis()->FindBin(xp);
                     Double_t yp = currentHist->GetBinContent(bin);
-                    par[1 + 3 * p] = 3 * yp;
+                    par[1 + 3 * p] = yp;
                     par[2 + 3 * p] = xp;
                     par[3 + 3 * p] = sigma;
                 }

@@ -34,7 +34,7 @@ public:
     int NUM;
     TTree *t;
     unique_ptr<DynamicBranchVector<TVector3>> v_dir, v_pos;
-    unique_ptr<DynamicBranchVector<double>> v_E, v_BE, v_FE, v_theta, v_dE;
+    unique_ptr<DynamicBranchVector<double>> v_E, v_BE, v_FE, v_theta, v_dE, v_solang;
     unique_ptr<DynamicBranchVector<short>> v_i;
     unique_ptr<DynamicBranchVector<short>> v_F, v_B;
     unique_ptr<DynamicBranchVector<double>> v_ang, v_SAng;
@@ -64,6 +64,7 @@ public:
         v_theta = make_unique<DynamicBranchVector<double>>(*t, "theta", "mul");
         v_ang = make_unique<DynamicBranchVector<double>>(*t, "angle", "mul");
         v_SAng = make_unique<DynamicBranchVector<double>>(*t, "scatterAngle", "mul");
+        v_solang = make_unique<DynamicBranchVector<double>>(*t, "solidAngle", "mul");
 
         v_E = make_unique<DynamicBranchVector<double>>(*t, "E", "mul");
         v_BE = make_unique<DynamicBranchVector<double>>(*t, "BE", "mul");
@@ -126,9 +127,10 @@ public:
 
                 //for Dssd detektorene regnes energien ud for eventet (gennemsnittet af den afsatte energi i
                 //front og back) og front og back energier assignes til nogle variable.
-                auto eDssd = energy(o, j);
                 auto eFDssd = fEnergy(o, j);
                 auto eBDssd = bEnergy(o, j);
+                //ved de besynderlige strips tager jeg bare bagenergien for det er frontenergien, der er gal
+                auto eDssd = energy(o,j);
               //  auto ePad = p.energy(0);
 
                 // vi assigner de detektorsegments, eventet er sket i. Det gemmes også i hit.
@@ -146,6 +148,7 @@ public:
                 auto direction = (position - origin).Unit();
                 hit.direction = direction;
                 hit.theta = hit.direction.Theta();
+                hit.solidAngle = o.detector().getPixelSolidAngle(FI,BI);
 
                 //tilføj en vektor, der beskriver beamens retning. Beregn vinklen mellem denne og direction, og assign
                 //det til hittet.
@@ -235,6 +238,7 @@ public:
 
             v_dE->add(hit.dE);
             v_ang->add(hit.angle * TMath::RadToDeg());
+            v_solang -> add(hit.solidAngle);
 
             v_i->add(static_cast<short>(hit.index));
             v_F->add(hit.fseg);

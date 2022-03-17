@@ -18,6 +18,7 @@ struct Hit {
     double angle;
     double phi;
     double scatterAngle;
+    double solidAngle;
     int numInDet, detectorMul;
     short fseg, bseg;
     std::vector<ParticleType> type;

@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Run.dir/Analyse.cpp.o"
   "CMakeFiles/Run.dir/Analyse.cpp.o.d"
+  "CMakeFiles/Run.dir/Thickness.cpp.o"
+  "CMakeFiles/Run.dir/Thickness.cpp.o.d"
   "CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.o"
   "CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.o.d"
   "CMakeFiles/Run.dir/run.cpp.o"

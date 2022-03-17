@@ -283,6 +283,7 @@
 			<Option target="Run"/>
 		</Unit>
 		<Unit filename="/home/jeppe/devel/projects/Aluscattering2/Thickness.cpp">
+			<Option target="Run"/>
 			<Option target="Thickness"/>
 		</Unit>
 		<Unit filename="/home/jeppe/devel/projects/Aluscattering2/Vinkelhistogrammer.cpp">
