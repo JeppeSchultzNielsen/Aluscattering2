@@ -81,7 +81,7 @@ double thickness(string in){
     UInt_t pixelInfo[1000][3] = {};
     vector<double_t> positions[1000] = {};
     vector<double_t> directions[1000] = {};
-
+    int hej = 0;
     int lastPrinted = 0;
     for (Int_t i = 0; i < entries; i++) {
         if(i%300000 == 0){
