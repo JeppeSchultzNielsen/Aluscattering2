@@ -179,6 +179,6 @@ double thickness(string in){
     summedHist -> Write();
     double area = 0;
     for (int p = 0; p < nfound; p++) {
-        int hej = 2;
+
     }
 }
