@@ -7,6 +7,9 @@
 #include <string>
 #include <iostream>
 #include "dirent.h"
+#include <tuple>
+
+using namespace std;
 
 int main(int argc, char *argv[]){
     //det her stykke kode er copy pastet herfra
@@ -32,12 +35,15 @@ int main(int argc, char *argv[]){
         return EXIT_FAILURE;
     }
 
+
     for(int k = 0; k < i; k++){
         //kan kommenteres ud hvis analyzen er kørt før
         //createFile("match/" + adresses[k]);
 
         //createTxt(adresses[k], 10, 0.5);
 
-        thickness(adresses[k]);
+        tuple<double,double> countsAtAngle = thickness(adresses[k]);
+        double countsat110 = get<0>(countsAtAngle);
+        double solidangle = get<1>(countsAtAngle);
     }
 }

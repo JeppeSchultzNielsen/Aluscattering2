@@ -32,7 +32,7 @@ tuple<bool,int> findPixel(UInt_t toSearch[1000][4], UInt_t FI, UInt_t BI, UInt_t
     return make_tuple(false,-1);
 }
 
-double thickness(string in){
+tuple<double,double> thickness(string in){
     //energien denne fil blev optaget ved er givet i dens titel
     int energy = stoi(regex_replace(in, regex(R"([\D])"), ""));
     //skab en pointer til root-filen der er blevet lavet af analyse.
@@ -179,6 +179,9 @@ double thickness(string in){
     summedHist -> Write();
     double area = 0;
     for (int p = 0; p < nfound; p++) {
-
+        if(par[1+3*p] > area){
+            area = par[1+3*p];
+        }
     }
+    return make_tuple(area,totalSolid);
 }
