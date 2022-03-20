@@ -26,7 +26,7 @@ double gaussSum(double *x, double *par){
         Double_t norm = par[3 * p+1]; // "height" or "area"
         Double_t mean = par[3 * p + 2];
         Double_t sigma = par[3 * p + 3];
-        result += norm*TMath::Gaus(x[0],mean,sigma);
+        result += norm*TMath::Gaus(x[0],mean,sigma, "kTRUE");
     }
     return result;
 }

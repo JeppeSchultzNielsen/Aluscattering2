@@ -8,7 +8,9 @@
 #include <iostream>
 #include "dirent.h"
 #include <tuple>
-
+#include <regex>
+#include <vector>
+#include <fstream>
 using namespace std;
 
 int main(int argc, char *argv[]){
@@ -35,6 +37,9 @@ int main(int argc, char *argv[]){
         return EXIT_FAILURE;
     }
 
+    string saveto = "rates.txt";
+    ofstream mytxt (saveto);
+    mytxt << "Counts\tSolid angle\tNew Solid\tEnergy\n";
 
     for(int k = 0; k < i; k++){
         //kan kommenteres ud hvis analyzen er kørt før
@@ -42,8 +47,14 @@ int main(int argc, char *argv[]){
 
         //createTxt(adresses[k], 10, 0.5);
 
-        tuple<double,double> countsAtAngle = thickness(adresses[k]);
-        double countsat110 = get<0>(countsAtAngle);
-        double solidangle = get<1>(countsAtAngle);
+        std::vector<double> countsAtAngle = thickness(adresses[k]);
+        double countsat110 = countsAtAngle[0];
+        double solidangle = countsAtAngle[1];
+        double solidangle2 = countsAtAngle[2];
+        double energy = countsAtAngle[3];
+
+        mytxt << to_string(countsat110) + "\t" + to_string(solidangle) + "\t" + to_string(solidangle2)
+            + "\t" + to_string(energy) + "\n";
     }
+    mytxt.close();
 }
