@@ -155,10 +155,9 @@ std::vector<double> thickness(string in){
     for(int i = 0; i < lastPrinted; i++){
         TH1I *currentHist = histograms[i];
         //jeg tager kun fra detektor 1
-        if(pixelInfo[i][2] == 1 && currentHist -> GetEntries() > 100){
+        if(pixelInfo[i][2] == 1 && currentHist -> GetEntries() > 300){
             summedHist -> Add(currentHist);
             totalSolid += solidangles[i];
-            cout << solidangles[i] << endl;
             //hvis jeg i stedet forsøger at beregne solidangle for denne pixel ved egen kraft:
             double a = 50/16;
             double b = 50/16;

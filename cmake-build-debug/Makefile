@@ -195,6 +195,30 @@ Analyse.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Analyse.cpp.s
 .PHONY : Analyse.cpp.s
 
+FindCurrent.o: FindCurrent.cpp.o
+.PHONY : FindCurrent.o
+
+# target to build an object file
+FindCurrent.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/FindCurrent.cpp.o
+.PHONY : FindCurrent.cpp.o
+
+FindCurrent.i: FindCurrent.cpp.i
+.PHONY : FindCurrent.i
+
+# target to preprocess a source file
+FindCurrent.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/FindCurrent.cpp.i
+.PHONY : FindCurrent.cpp.i
+
+FindCurrent.s: FindCurrent.cpp.s
+.PHONY : FindCurrent.s
+
+# target to generate assembly for a file
+FindCurrent.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/FindCurrent.cpp.s
+.PHONY : FindCurrent.cpp.s
+
 Thickness.o: Thickness.cpp.o
 .PHONY : Thickness.o
 
@@ -288,6 +312,9 @@ help:
 	@echo "... Analyse.o"
 	@echo "... Analyse.i"
 	@echo "... Analyse.s"
+	@echo "... FindCurrent.o"
+	@echo "... FindCurrent.i"
+	@echo "... FindCurrent.s"
 	@echo "... Thickness.o"
 	@echo "... Thickness.i"
 	@echo "... Thickness.s"

@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/jeppe/devel/projects/Aluscattering2/Analyse.cpp" "CMakeFiles/Run.dir/Analyse.cpp.o" "gcc" "CMakeFiles/Run.dir/Analyse.cpp.o.d"
+  "/home/jeppe/devel/projects/Aluscattering2/FindCurrent.cpp" "CMakeFiles/Run.dir/FindCurrent.cpp.o" "gcc" "CMakeFiles/Run.dir/FindCurrent.cpp.o.d"
   "/home/jeppe/devel/projects/Aluscattering2/Thickness.cpp" "CMakeFiles/Run.dir/Thickness.cpp.o" "gcc" "CMakeFiles/Run.dir/Thickness.cpp.o.d"
   "/home/jeppe/devel/projects/Aluscattering2/Vinkelhistogrammer.cpp" "CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.o" "gcc" "CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.o.d"
   "/home/jeppe/devel/projects/Aluscattering2/run.cpp" "CMakeFiles/Run.dir/run.cpp.o" "gcc" "CMakeFiles/Run.dir/run.cpp.o.d"

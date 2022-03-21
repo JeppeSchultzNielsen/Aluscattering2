@@ -1,0 +1,324 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "Run"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 16,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 17,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 6,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 7,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 8,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"fragment" : "-std=gnu++14"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "AUSA_HAS_CURL"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "AUSA_HAS_LIBCURL"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "FMT_LOCALE"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "HAVE_GSL"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "/home/jeppe/devel/projects/Aluscattering2/."
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/jeppe/devel/projects/Aluscattering2/match"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/jeppe/devel/projects/Aluscattering2/setup"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/local/include/root"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2,
+					2,
+					2
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4
+			]
+		}
+	],
+	"id" : "Run::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/usr/local/lib/root",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/usr/local/lib/libAUSA.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libPhysics.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libTreePlayer.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libGraf3d.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libGpad.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libGraf.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libTree.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libMathMore.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libSpectrum.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libHist.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libMatrix.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libMathCore.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libImt.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libMultiProc.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libNet.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libRIO.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libThread.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libCore.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/root/libCling.so.6.24.06",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-Wl,--unresolved-symbols=ignore-in-object-files",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libfmt.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgsl.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgslcblas.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libcurl.so",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "Run",
+	"nameOnDisk" : "Run",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				5,
+				6
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "run.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Vinkelhistogrammer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Analyse.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Thickness.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "FindCurrent.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/runner.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/runner2.h",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "EXECUTABLE"
+}

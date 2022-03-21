@@ -39,13 +39,13 @@ int main(int argc, char *argv[]){
 
     string saveto = "rates.txt";
     ofstream mytxt (saveto);
-    mytxt << "Counts\tSolid angle\tNew Solid\tEnergy\n";
+    mytxt << "Counts\tSolid angle\tNew Solid\tEnergy\tDeltaClock\tDeltaCharge\n";
 
     for(int k = 0; k < i; k++){
         //kan kommenteres ud hvis analyzen er kørt før
-        createFile("match/" + adresses[k]);
+        //createFile("match/" + adresses[k]);
 
-        createTxt(adresses[k], 10, 0.5);
+        //createTxt(adresses[k], 10, 0.5);
 
         std::vector<double> countsAtAngle = thickness(adresses[k]);
         double countsat110 = countsAtAngle[0];
@@ -53,8 +53,12 @@ int main(int argc, char *argv[]){
         double solidangle2 = countsAtAngle[2];
         double energy = countsAtAngle[3];
 
+        std::vector<double> current = findCurrent(adresses[k]);
+        double deltaClock = current[0];
+        double deltaCharge = current[1];
+
         mytxt << to_string(countsat110) + "\t" + to_string(solidangle) + "\t" + to_string(solidangle2)
-            + "\t" + to_string(energy) + "\n";
+            + "\t" + to_string(energy) + "\t" + to_string(deltaClock) + "\t" + to_string(deltaCharge) + "\n";
     }
     mytxt.close();
 }
