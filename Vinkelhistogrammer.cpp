@@ -141,9 +141,8 @@ void createTxt(string in, double sigma, double precision){
         if (currentHist->GetEntries() > 100) {
             ntot += 1;
             auto *s = new TSpectrum(100);
-            Int_t nfound = s->Search(currentHist, sigma, "", 0.05);
+            Int_t nfound = s->Search(currentHist, sigma, "", 0.1);
 
-            cout << nfound << endl;
             auto xpeaks = s->GetPositionX();
 
             //For hvert peak skal jeg bruge 3 parametre til at bestemme en gauss. (og så skal jeg give en mere til

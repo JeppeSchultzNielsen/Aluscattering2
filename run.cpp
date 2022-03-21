@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
         //kan kommenteres ud hvis analyzen er kørt før
         //createFile("match/" + adresses[k]);
 
-        createTxt(adresses[k], 40, 0.5);
+        createTxt(adresses[k], 40, 0.2);
 
         std::vector<double> countsAtAngle = thickness(adresses[k]);
         double countsat110 = countsAtAngle[0];
