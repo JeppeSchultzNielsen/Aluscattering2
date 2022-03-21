@@ -41,11 +41,11 @@ int main(int argc, char *argv[]){
     ofstream mytxt (saveto);
     mytxt << "Counts\tSolid angle\tNew Solid\tEnergy\n";
 
-    for(int k = 0; k < i; k++){
+    for(int k = 2; k < i; k++){
         //kan kommenteres ud hvis analyzen er kørt før
         //createFile("match/" + adresses[k]);
 
-        //createTxt(adresses[k], 10, 0.5);
+        createTxt(adresses[k], 40, 0.5);
 
         std::vector<double> countsAtAngle = thickness(adresses[k]);
         double countsat110 = countsAtAngle[0];

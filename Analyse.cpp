@@ -129,7 +129,6 @@ public:
                 //front og back) og front og back energier assignes til nogle variable.
                 auto eFDssd = fEnergy(o, j);
                 auto eBDssd = bEnergy(o, j);
-                //ved de besynderlige strips tager jeg bare bagenergien for det er frontenergien, der er gal
                 auto eDssd = energy(o,j);
               //  auto ePad = p.energy(0);
 

@@ -12,6 +12,8 @@
 #include "TFitResult.h"
 #include "include/runner2.h"
 #include <regex>
+#include <array>
+#include <iterator>
 
 using namespace std;
 using namespace AUSA;
@@ -33,7 +35,7 @@ double gaussSum(double *x, double *par){
 
 bool AreSame(double a, double b, double precision)
 {
-    return fabs(a - b) < 0.5;
+    return fabs(a - b) < precision;
 }
 
 //løber igennem listen af angles og returnerer true hvis vinklen er i listen
@@ -136,39 +138,75 @@ void createTxt(string in, double sigma, double precision){
 
         //vi vil kun gøre det følgende, hvis vi har mere end 5000 entries i histogrammet, ellers giver det ikke
         //rigtigt mening.
-        if (currentHist->GetEntries() > 1000) {
+        if (currentHist->GetEntries() > 100) {
             ntot += 1;
             auto *s = new TSpectrum(100);
             Int_t nfound = s->Search(currentHist, sigma, "", 0.05);
 
+            cout << nfound << endl;
             auto xpeaks = s->GetPositionX();
 
             //For hvert peak skal jeg bruge 3 parametre til at bestemme en gauss. (og så skal jeg give en mere til
             //funktionen for at fortælle den, hvor mange peaks der er, men den fixes til npeaks).
-            double par[nfound * 3 + 1];
-            //gider ikke dem der har mange peaks
-            if (nfound < 9 ) {
-                for (int p = 0; p < nfound; p++) {
-                    Double_t xp = xpeaks[p];
-                    Int_t bin = currentHist->GetXaxis()->FindBin(xp);
-                    Double_t yp = currentHist->GetBinContent(bin);
-                    par[1 + 3 * p] = yp;
-                    par[2 + 3 * p] = xp;
-                    par[3 + 3 * p] = sigma;
-                }
-                TF1 *fit = new TF1("fit", gaussSum, 0, energy, 1 + 3 * nfound);
-
-                fit->SetParameters(par);
-                fit->FixParameter(0, nfound);
-                fit->SetNpx(2000);
-                TFitResultPtr fp = currentHist->Fit("fit","s && Q");
-                output.cd();
-                currentHist->Write();
-                if(true) { // fp->IsValid()
-                    nconverged += 1;
-                    for (int k = 0; k < nfound; k++) {
-                        mytxt << to_string(angles[i]) + "\t" + to_string(fp->Parameter(2 + 3 * k)) + "\t" + to_string(fp -> ParError(2+3*k)) + "\n";
+            int npar = 1+3*nfound;
+            double par[npar];
+            double peakHeights[nfound];
+            for (int p = 0; p < nfound; p++) {
+                Double_t xp = xpeaks[p];
+                Int_t bin = currentHist->GetXaxis()->FindBin(xp);
+                Double_t yp = currentHist->GetBinContent(bin);
+                par[1 + 3 * p] = yp*TMath::Sqrt(2*Math::Pi())*sigma;
+                peakHeights[p] = yp;
+                par[2 + 3 * p] = xp;
+                par[3 + 3 * p] = sigma;
+            }
+            /*int maxpeaks = 7;
+            //hvis der er mere end 7 peaks, så tag kun de 7 højeste.
+            if ( nfound > maxpeaks) {
+                cout << "hej" << endl;
+                npar = 1+3*maxpeaks;
+                double newPar[npar];
+                newPar[0] = maxpeaks;
+                vector<int> highIndeces= {};
+                //find de 7 højeste peak
+                for(int j = 0; j < maxpeaks; j++){
+                    int highestPeak = 0;
+                    double highestPeakValue = 0;
+                    //find det maksimale peak
+                    for(int k = 0; k < nfound; j++){
+                        double currentVal = peakHeights[k];
+                        if(currentVal>highestPeakValue){
+                            highestPeak = k;
+                            highestPeakValue = currentVal;
+                        }
                     }
+                    //push det til highIndex vectoren og sæt det til 0, find så det næsthøjeste
+                    highIndeces.push_back(highestPeak);
+                    peakHeights[highestPeak] = 0;
+                }
+                for(int j = 0; j < maxpeaks; j++){
+                    newPar[1+3*j] = par[highIndeces[j]];
+                    newPar[2+3*j] = par[highIndeces[j]+1];
+                    newPar[3+3*j] = par[highIndeces[j]+2];
+                }
+                for(int j = 0; j < npar; j++){
+                    par[j] = newPar[j];
+                }
+            }
+            cout << npar <<endl;*/
+
+            TF1 *fit = new TF1("fit", gaussSum, 0, energy, npar);
+
+            fit->SetParameters(par);
+            fit->FixParameter(0, nfound);
+            fit->SetNpx(2000);
+            TFitResultPtr fp = currentHist->Fit("fit","s && Q");
+            output.cd();
+            currentHist->Write();
+            if(fp ->CovMatrixStatus() != 0 && fp ->CovMatrixStatus() != 1) { // fp->IsValid()
+                nconverged += 1;
+                for (int k = 0; k < nfound; k++) {
+                    mytxt << to_string(angles[i]) + "\t" + to_string(fp->Parameter(2 + 3 * k)) + "\t" + to_string(fp -> ParError(2+3*k)) + "\n";
                 }
             }
         }

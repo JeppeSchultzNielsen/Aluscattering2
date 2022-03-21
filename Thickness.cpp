@@ -83,8 +83,6 @@ std::vector<double> thickness(string in){
     t->SetBranchAddress("scatterAngle",&scatterAngle);
     t->SetBranchAddress("mul",&mul);
     auto entries = t->GetEntries();
-    cout << "Energy: " << energy << "keV " << endl;
-    cout << "Entries: " << entries << endl;
 
     //skriv peak positioner til en .txt fil
 
