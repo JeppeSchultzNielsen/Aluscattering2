@@ -56,9 +56,9 @@ std::vector<double> thickness(string in){
     //deri når vi kalder getEntry(i). Print antallet af entries i træet.
     double_t E[1000];
     double_t scatterAngle[1000];
-    UInt_t BI[1000];
-    UInt_t FI[1000];
-    UInt_t id[1000];
+    Short_t BI[1000];
+    Short_t FI[1000];
+    Short_t id[1000];
     double_t posx[1000];
     double_t posy[1000];
     double_t posz[1000];
@@ -68,19 +68,19 @@ std::vector<double> thickness(string in){
     double_t dirz[1000];
     double_t solid[1000];
     UInt_t mul;
-    t->SetBranchAddress("pos.fX",&posx);
-    t->SetBranchAddress("pos.fY",&posy);
-    t->SetBranchAddress("pos.fZ",&posz);
-    t->SetBranchAddress("solidAngle",&solid);
+    t->SetBranchAddress("pos.fX",posx);
+    t->SetBranchAddress("pos.fY",posy);
+    t->SetBranchAddress("pos.fZ",posz);
+    t->SetBranchAddress("solidAngle",solid);
 
-    t->SetBranchAddress("dir.fX",&dirx);
-    t->SetBranchAddress("dir.fY",&diry);
-    t->SetBranchAddress("dir.fZ",&dirz);
-    t->SetBranchAddress("id",&id);
-    t->SetBranchAddress("BI",&BI);
-    t->SetBranchAddress("FI",&FI);
-    t->SetBranchAddress("E",&E);
-    t->SetBranchAddress("scatterAngle",&scatterAngle);
+    t->SetBranchAddress("dir.fX",dirx);
+    t->SetBranchAddress("dir.fY",diry);
+    t->SetBranchAddress("dir.fZ",dirz);
+    t->SetBranchAddress("id",id);
+    t->SetBranchAddress("BI",BI);
+    t->SetBranchAddress("FI",FI);
+    t->SetBranchAddress("E",E);
+    t->SetBranchAddress("scatterAngle",scatterAngle);
     t->SetBranchAddress("mul",&mul);
     auto entries = t->GetEntries();
 
@@ -158,6 +158,7 @@ std::vector<double> thickness(string in){
         if(pixelInfo[i][2] == 1 && currentHist -> GetEntries() > 100){
             summedHist -> Add(currentHist);
             totalSolid += solidangles[i];
+            cout << solidangles[i] << endl;
             //hvis jeg i stedet forsøger at beregne solidangle for denne pixel ved egen kraft:
             double a = 50/16;
             double b = 50/16;

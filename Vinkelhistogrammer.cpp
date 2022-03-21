@@ -100,7 +100,7 @@ void createTxt(string in, double sigma, double precision){
             short currentDet = 0;
             currentDet += id[j];
             currentAngle += scatterAngle[j];
-            if (currentDet != 3) { //kan frasortere en detektor, 3 betyder ingen bliver frasorteret
+            if (currentDet != 0) { //kan frasortere en detektor, 3 betyder ingen bliver frasorteret
                 auto boolAndIndex = findAngle(angles, currentAngle, precision, lastPrinted);
                 if (!get<0>(boolAndIndex)) {
                     //skab nyt histogram til at indeholde events ved denne vinkel

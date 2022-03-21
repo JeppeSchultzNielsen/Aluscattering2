@@ -1,2 +1,0 @@
-Counts	Solid angle	New Solid	Energy
-3281.276065	0.150849	0.001704	3000.000000
