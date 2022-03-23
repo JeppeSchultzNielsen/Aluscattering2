@@ -100,7 +100,7 @@ void createTxt(string in, double sigma, double precision){
             short currentDet = 0;
             currentDet += id[j];
             currentAngle += scatterAngle[j];
-            if (currentDet != 0) { //kan frasortere en detektor, 3 betyder ingen bliver frasorteret
+            if (currentDet != 3) { //kan frasortere en detektor, 3 betyder ingen bliver frasorteret
                 auto boolAndIndex = findAngle(angles, currentAngle, precision, lastPrinted);
                 if (!get<0>(boolAndIndex)) {
                     //skab nyt histogram til at indeholde events ved denne vinkel
@@ -159,40 +159,6 @@ void createTxt(string in, double sigma, double precision){
                 par[2 + 3 * p] = xp;
                 par[3 + 3 * p] = sigma;
             }
-            /*int maxpeaks = 7;
-            //hvis der er mere end 7 peaks, så tag kun de 7 højeste.
-            if ( nfound > maxpeaks) {
-                cout << "hej" << endl;
-                npar = 1+3*maxpeaks;
-                double newPar[npar];
-                newPar[0] = maxpeaks;
-                vector<int> highIndeces= {};
-                //find de 7 højeste peak
-                for(int j = 0; j < maxpeaks; j++){
-                    int highestPeak = 0;
-                    double highestPeakValue = 0;
-                    //find det maksimale peak
-                    for(int k = 0; k < nfound; j++){
-                        double currentVal = peakHeights[k];
-                        if(currentVal>highestPeakValue){
-                            highestPeak = k;
-                            highestPeakValue = currentVal;
-                        }
-                    }
-                    //push det til highIndex vectoren og sæt det til 0, find så det næsthøjeste
-                    highIndeces.push_back(highestPeak);
-                    peakHeights[highestPeak] = 0;
-                }
-                for(int j = 0; j < maxpeaks; j++){
-                    newPar[1+3*j] = par[highIndeces[j]];
-                    newPar[2+3*j] = par[highIndeces[j]+1];
-                    newPar[3+3*j] = par[highIndeces[j]+2];
-                }
-                for(int j = 0; j < npar; j++){
-                    par[j] = newPar[j];
-                }
-            }
-            cout << npar <<endl;*/
 
             TF1 *fit = new TF1("fit", gaussSum, 0, energy, npar);
 

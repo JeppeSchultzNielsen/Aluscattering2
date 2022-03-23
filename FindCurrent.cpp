@@ -15,6 +15,7 @@
 #include <array>
 #include <iterator>
 #include <TGraph.h>
+#include <TMultiGraph.h>
 
 using namespace std;
 using namespace AUSA;
@@ -22,11 +23,8 @@ using namespace ROOT::Math;
 using namespace AUSA::EnergyLoss;
 using namespace ROOT;
 
-double linstep(double *x, double *par){
-    return x[0]*par[0] + par[1];
-}
-
 vector<double> findCurrent(string in){
+    string energy = regex_replace(in, regex(R"([\D])"), "");
     string analyzed = "Al"+regex_replace(in, regex(R"([\D])"), "") + ".root";
     TFile *myFile = TFile::Open(analyzed.c_str());
     TTree *t = (TTree*)myFile->Get("h101");
@@ -37,10 +35,10 @@ vector<double> findCurrent(string in){
     t ->SetBranchAddress("CLOCK",&clock);
 
     t->GetEntry(0);
-    double firstClock = clock;
+    UInt_t firstClock = clock;
     double firstCharge = vcharge;
 
-    int entries = t -> GetEntries();
+    UInt_t entries = t -> GetEntries();
 
     t->GetEntry(entries - 1);
 
@@ -54,7 +52,10 @@ vector<double> findCurrent(string in){
 
     for(int i = 0; i < entries; i++){
         t->GetEntry(i);
-        if(vcharge > firstCharge + 10){
+        if(vcharge > 0){
+            gr -> AddPoint(clock, vcharge);
+        }
+        if(vcharge > firstCharge + 20){
             if(lastClock < clock){
                 lastClock = clock;
                 lastCharge = vcharge;
@@ -68,7 +69,27 @@ vector<double> findCurrent(string in){
 
     double deltaCharge = lastCharge - stepCharge;
     double deltaClock =  lastClock - stepClock;
-    double current = deltaCharge/(deltaClock/1000);
+    double_t current = deltaCharge/(deltaClock);
+    double_t offset = firstCharge - stepClock*current;
+
+    cout << current << endl;
+
+    cout << offset << endl;
+
+
+    auto gr2 = new TGraph();
+    for(UInt_t i = firstClock; i < (lastClock + 1000); i=i+1000){
+        gr2 ->AddPoint(i,offset + current*i);
+    }
+
+    TMultiGraph *mg = new TMultiGraph();
+    mg->Add(gr);
+    mg->Add(gr2);
+    string histRoot = "currentGraphs/" + energy + "clockvscharge.root";
+    TFile output(histRoot.c_str(), "RECREATE");
+
+    output.cd();
+    mg -> Write();
 
     return {deltaClock, deltaCharge};
 }

@@ -148,7 +148,6 @@ public:
                 hit.direction = direction;
                 hit.theta = hit.direction.Theta();
                 hit.solidAngle = o.detector().getPixelSolidAngle(FI,BI);
-                cout << hit.solidAngle << endl;
 
                 //tilføj en vektor, der beskriver beamens retning. Beregn vinklen mellem denne og direction, og assign
                 //det til hittet.
