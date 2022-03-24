@@ -43,7 +43,7 @@ tuple<bool,int> findPixel(UInt_t toSearch[1000][3], UInt_t FI, UInt_t BI, UInt_t
     return make_tuple(false,-1);
 }
 
-std::vector<double> thickness(string in){
+std::vector<double> thickness(string in, int angle){
     //energien denne fil blev optaget ved er givet i dens titel
     int energy = stoi(regex_replace(in, regex(R"([\D])"), ""));
     //skab en pointer til root-filen der er blevet lavet af analyse.
@@ -96,7 +96,7 @@ std::vector<double> thickness(string in){
     int lastPrinted = 0;
     for (Int_t i = 0; i < entries; i++) {
         if(i%300000 == 0){
-            cout << "Finding 110 degrees in " << energy << "keV data: " << float(i)/float(entries)*100<< "%" << " \r";
+            cout << "Finding " + to_string(angle) +" degrees in " << energy << "keV data: " << float(i)/float(entries)*100<< "%" << " \r";
             cout.flush();
         }
 
@@ -108,7 +108,7 @@ std::vector<double> thickness(string in){
             double currentAngle = 0;
             currentAngle += scatterAngle[j];
             //vi gider kun at bruge dem der er scatteret ved ca. 110 grader.
-            if(fabs(currentAngle - 110) < 0.5) {
+            if(fabs(currentAngle - angle) < 0.5) {
                 short currentFI = 0;
                 short currentBI = 0;
                 short currentid = 0;
@@ -154,8 +154,8 @@ std::vector<double> thickness(string in){
     double totalSolid2 = 0;
     for(int i = 0; i < lastPrinted; i++){
         TH1I *currentHist = histograms[i];
-        //jeg tager kun fra detektor 1
-        if(pixelInfo[i][2] == 1 && currentHist -> GetEntries() > 300){
+        //jeg tager kun fra detektor 1 og 2.
+        if(!(pixelInfo[i][2] == 0) && currentHist -> GetEntries() > 300){
             summedHist -> Add(currentHist);
             totalSolid += solidangles[i];
             //hvis jeg i stedet forsøger at beregne solidangle for denne pixel ved egen kraft:

@@ -9,7 +9,7 @@ using namespace std;
 #define ALUSCATTERING_RUNNER_H
 
 void createFile(string in);
-std::vector<double> thickness(string in);
+std::vector<double> thickness(string in, int angle);
 double gaussSum(double *x, double *par);
 std::vector<double> findCurrent(string in);
 

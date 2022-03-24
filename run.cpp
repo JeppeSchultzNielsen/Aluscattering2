@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
 
     string saveto = "rates.txt";
     ofstream mytxt (saveto);
-    mytxt << "Counts\tSolid angle\tNew Solid\tEnergy\tDeltaClock\tDeltaCharge\n";
+    mytxt << "Counts\tSolid angle\tNew Solid\tEnergy\tDeltaClock\tDeltaCharge\tAngle\n";
 
     for(int k = 0; k < i; k++){
         //kan kommenteres ud hvis analyzen er kørt før
@@ -47,18 +47,23 @@ int main(int argc, char *argv[]){
 
         //createTxt(adresses[k], 10, 0.5);
 
-        std::vector<double> countsAtAngle = thickness(adresses[k]);
-        double countsat110 = countsAtAngle[0];
-        double solidangle = countsAtAngle[1];
-        double solidangle2 = countsAtAngle[2];
-        double energy = countsAtAngle[3];
+        std::vector<int> angles = {100,105,110,115,120,125,140,145,150,155};
 
         std::vector<double> current = findCurrent(adresses[k]);
         double deltaClock = current[0];
         double deltaCharge = current[1];
 
-        mytxt << to_string(countsat110) + "\t" + to_string(solidangle) + "\t" + to_string(solidangle2)
-            + "\t" + to_string(energy) + "\t" + to_string(deltaClock) + "\t" + to_string(deltaCharge) + "\n";
+        for(int j = 0; j < angles.size(); j++){
+            std::vector<double> countsAtAngle = thickness(adresses[k], angles[j]);
+            double countsat110 = countsAtAngle[0];
+            double solidangle = countsAtAngle[1];
+            double solidangle2 = countsAtAngle[2];
+            double energy = countsAtAngle[3];
+
+            mytxt << to_string(countsat110) + "\t" + to_string(solidangle) + "\t" + to_string(solidangle2)
+                     + "\t" + to_string(energy) + "\t" + to_string(deltaClock) + "\t" +
+                     to_string(deltaCharge) +"\t"+ to_string(angles[j])+"\n";
+        }
     }
     mytxt.close();
 }
