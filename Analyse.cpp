@@ -48,11 +48,15 @@ public:
     vector<double> deadlayerF, deadlayerB, deadlayerP;
     Target &target;
     bool simulation = false;
+    double accEnergy;
+    TVector3 beta;
 
     //Constructor for analyseklassen. Vi initialiserer det TTree, som vi vil ende med at gemme alle vores ting i.
     //Der laves også nogle energitabsberegninger. Gad vide mon hvad de skal bruges til.
-    MyAnalysis(Target &target, TFile *output) : target(target) {
+    MyAnalysis(Target &target, TFile *output, double in) : target(target) {
         NUM = 0;
+        accEnergy = in;
+        beta = sqrt(2 * accEnergy * PROTON_MASS) * TVector3(0,0,1);
 
         t = new TTree("a", "a");
         t->Branch("mul", &mul);
@@ -207,7 +211,10 @@ public:
                 //assign detektorindekset til hittet. Der laves også en Lorentz-vektor, ligner godt nok, at vi
                 //antager, at det er alpha-partikler - skal nok ændres hvis det skal bruges.
                 hit.index = i;
-                hit.lVector = {sqrt(2 * hit.E * ALPHA_MASS) * hit.direction, hit.E + ALPHA_MASS};
+                hit.lVector = {sqrt(2 * hit.E * (PROTON_MASS * 0.001)/) * hit.direction, hit.E + PROTON_MASS};
+
+                auto beta =
+
 
                 //vedhæft dette hit til vores liste af hits.
                 hits.emplace_back(move(hit));
@@ -289,6 +296,8 @@ void createFile(string in){
     auto setup = JSON::readSetupFromJSON("setup/setup.json");
     auto target = JSON::readTargetFromJSON("setup/target.json");
 
+    double energy = stoi(regex_replace(in, regex(R"([\D])"), ""));
+
     SortedReader reader{*setup};
     reader.add(in);
     reader.setVerbose(true);
@@ -300,7 +309,7 @@ void createFile(string in){
     cout << "Printing to:  " << outfile << endl;
 
     TFile output(outfile, "RECREATE");
-    auto analysis = make_shared<MyAnalysis>(target, &output);
+    auto analysis = make_shared<MyAnalysis>(target, &output, energy);
     reader.attach(analysis);
     reader.run();
 }
