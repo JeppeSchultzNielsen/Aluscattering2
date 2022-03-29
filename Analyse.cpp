@@ -34,7 +34,7 @@ public:
     int NUM;
     TTree *t;
     unique_ptr<DynamicBranchVector<TVector3>> v_dir, v_pos;
-    unique_ptr<DynamicBranchVector<double>> v_E, v_BE, v_FE, v_theta, v_dE, v_solang;
+    unique_ptr<DynamicBranchVector<double>> v_E, v_BE, v_FE, v_theta, v_dE, v_solang, v_cmE;
     unique_ptr<DynamicBranchVector<short>> v_i;
     unique_ptr<DynamicBranchVector<short>> v_F, v_B;
     unique_ptr<DynamicBranchVector<double>> v_ang, v_SAng;
@@ -56,7 +56,6 @@ public:
     MyAnalysis(Target &target, TFile *output, double in) : target(target) {
         NUM = 0;
         accEnergy = in;
-        beta = sqrt(2 * accEnergy * PROTON_MASS) * TVector3(0,0,1);
 
         t = new TTree("a", "a");
         t->Branch("mul", &mul);
@@ -83,6 +82,12 @@ public:
 
         v_F = make_unique<DynamicBranchVector<short>>(*t, "FI", "mul");
         v_B = make_unique<DynamicBranchVector<short>>(*t, "BI", "mul");
+
+        v_cmE = make_unique<DynamicBranchVector<double>>(*t, "cmE", "mul");
+
+        beta = TMath::Sqrt((accEnergy+PROTON_MASS)*(accEnergy+PROTON_MASS)-PROTON_MASS*PROTON_MASS)/(accEnergy+PROTON_MASS + 25133144) * TVector3(0,0,1);
+
+        cout << beta[2] << endl;
 
         //t->Branch("TPATTERN", &TPATTERN);
         //t->Branch("TPROTONS", &TPROTONS);
@@ -211,10 +216,9 @@ public:
                 //assign detektorindekset til hittet. Der laves også en Lorentz-vektor, ligner godt nok, at vi
                 //antager, at det er alpha-partikler - skal nok ændres hvis det skal bruges.
                 hit.index = i;
-                hit.lVector = {sqrt(2 * hit.E * (PROTON_MASS * 0.001)/) * hit.direction, hit.E + PROTON_MASS};
-
-                auto beta =
-
+                hit.lVector = {TMath::Sqrt((hit.E + PROTON_MASS)*(hit.E + PROTON_MASS) - PROTON_MASS*PROTON_MASS) * hit.direction, hit.E + PROTON_MASS};
+                hit.lVector.Boost(-1*beta);
+                hit.cmEnergy = hit.lVector[3] - PROTON_MASS;
 
                 //vedhæft dette hit til vores liste af hits.
                 hits.emplace_back(move(hit));
@@ -251,6 +255,7 @@ public:
             v_B->add(hit.bseg);
             v_FT->add(hit.TF);
             v_BT->add(hit.TB);
+            v_cmE->add(hit.cmEnergy);
         }
     }
 
@@ -278,7 +283,7 @@ public:
                 *v_i, *v_FE, *v_BE,
                 *v_F, *v_B, *v_SAng,
                 *v_ang, *v_pos, *v_dir,
-                *v_dE, *v_FT, *v_BT
+                *v_dE, *v_FT, *v_BT, *v_cmE
         );
     }
 
