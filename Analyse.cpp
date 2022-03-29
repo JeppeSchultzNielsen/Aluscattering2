@@ -34,7 +34,7 @@ public:
     int NUM;
     TTree *t;
     unique_ptr<DynamicBranchVector<TVector3>> v_dir, v_pos;
-    unique_ptr<DynamicBranchVector<double>> v_E, v_BE, v_FE, v_theta, v_dE, v_solang, v_cmE;
+    unique_ptr<DynamicBranchVector<double>> v_E, v_BE, v_FE, v_theta, v_dE, v_solang, v_cmE, v_cmE2;
     unique_ptr<DynamicBranchVector<short>> v_i;
     unique_ptr<DynamicBranchVector<short>> v_F, v_B;
     unique_ptr<DynamicBranchVector<double>> v_ang, v_SAng;
@@ -50,6 +50,7 @@ public:
     bool simulation = false;
     double accEnergy;
     TVector3 beta;
+    TVector3 beta2;
 
     //Constructor for analyseklassen. Vi initialiserer det TTree, som vi vil ende med at gemme alle vores ting i.
     //Der laves også nogle energitabsberegninger. Gad vide mon hvad de skal bruges til.
@@ -84,11 +85,15 @@ public:
         v_B = make_unique<DynamicBranchVector<short>>(*t, "BI", "mul");
 
         v_cmE = make_unique<DynamicBranchVector<double>>(*t, "cmE", "mul");
+        v_cmE2 = make_unique<DynamicBranchVector<double>>(*t, "cmE2", "mul");
 
-        beta = TMath::Sqrt((accEnergy+PROTON_MASS)*(accEnergy+PROTON_MASS)-PROTON_MASS*PROTON_MASS)/(accEnergy+PROTON_MASS + 25133144) * TVector3(0,0,1);
+        beta = TMath::Sqrt((accEnergy+PROTON_MASS)*(accEnergy+PROTON_MASS)-PROTON_MASS*PROTON_MASS)/(accEnergy+PROTON_MASS + Ion("Al27").getMass()) * TVector3(0,0,1);
 
         cout << beta[2] << endl;
 
+        beta2 = constructBeamVector(Ion("H1"),Ion("Al27"),accEnergy).BoostVector();
+
+        cout << beta2[2] << endl;
         //t->Branch("TPATTERN", &TPATTERN);
         //t->Branch("TPROTONS", &TPROTONS);
         //t->Branch("EGPS", &EGPS);
@@ -220,6 +225,10 @@ public:
                 hit.lVector.Boost(-1*beta);
                 hit.cmEnergy = hit.lVector[3] - PROTON_MASS;
 
+                hit.lVector2 = {sqrt(2 * hit.E * PROTON_MASS) * hit.direction, hit.E + PROTON_MASS};
+                hit.lVector2.Boost(-1*beta2);
+                hit.cmEnergy2 = hit.lVector2[3] - PROTON_MASS;
+
                 //vedhæft dette hit til vores liste af hits.
                 hits.emplace_back(move(hit));
             }
@@ -256,6 +265,7 @@ public:
             v_FT->add(hit.TF);
             v_BT->add(hit.TB);
             v_cmE->add(hit.cmEnergy);
+            v_cmE2->add(hit.cmEnergy2);
         }
     }
 
@@ -276,6 +286,15 @@ public:
         NUM++;
     }
 
+    static TLorentzVector constructBeamVector(const Ion& beam,
+                                              const Ion& targetIon,
+                                              double beamEnergy) {
+        TLorentzVector plbeam( TVector3(0,0,sqrt(2*beamEnergy*beam.getMass())), beamEnergy+beam.getMass() );
+        TLorentzVector pltarget( TVector3(0,0,0), targetIon.getMass() );
+        return plbeam + pltarget;
+    }
+
+
     void clear() {
         mul = 0;
         AUSA::clear(
@@ -283,7 +302,7 @@ public:
                 *v_i, *v_FE, *v_BE,
                 *v_F, *v_B, *v_SAng,
                 *v_ang, *v_pos, *v_dir,
-                *v_dE, *v_FT, *v_BT, *v_cmE
+                *v_dE, *v_FT, *v_BT, *v_cmE, *v_cmE2
         );
     }
 
@@ -294,6 +313,7 @@ public:
         gDirectory->WriteTObject(t);
     }
 };
+
 
 //essentielt main
 void createFile(string in){

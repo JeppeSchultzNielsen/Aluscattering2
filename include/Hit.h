@@ -6,7 +6,7 @@ struct Hit {
     double deposited;
     double paddeposited;
 
-    double E, FE, BE, Edssd, dE, EBeta, fbdiff, cmEnergy;
+    double E, FE, BE, Edssd, dE, EBeta, fbdiff, cmEnergy, cmEnergy2;
 
 
     double TF, TB, TPad, T;
@@ -26,5 +26,5 @@ struct Hit {
     bool canBeBeta;
     size_t index;
 
-    TLorentzVector lVector, lVectorBeta, lVectorAlpha;
+    TLorentzVector lVector, lVectorBeta, lVectorAlpha, lVector2;
 };
