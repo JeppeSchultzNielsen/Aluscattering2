@@ -1,11 +1,11 @@
 # AUSAlib version: 17.1
 # Calibrator version: 2.0
-# Calibrator arguments: Calibrator --gui --eloss -d SU
+# Calibrator arguments: Calibrator --eloss -d SU
 # Input files: 
 #	su.root
 # Calibration of SU
-# Performed @ 2022-03-09 13:32
-# Performed by jeppe on jeppe-Lenovo-IdeaPad-S540-13API
+# Performed @ 2022-03-30 09:42
+# Performed by jeppe on jeppe-All-Series
 # Front
 -336.611 3.09926
 -297.947 3.18063

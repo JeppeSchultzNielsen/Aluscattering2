@@ -1,11 +1,11 @@
 # AUSAlib version: 17.1
 # Calibrator version: 2.0
-# Calibrator arguments: Calibrator --gui --eloss -d Det2
+# Calibrator arguments: Calibrator --eloss -d Det2
 # Input files: 
 #	det2.root
 # Calibration of Det2
-# Performed @ 2022-03-09 13:31
-# Performed by jeppe on jeppe-Lenovo-IdeaPad-S540-13API
+# Performed @ 2022-03-30 09:40
+# Performed by jeppe on jeppe-All-Series
 # Front
 -446.316 3.30224
 -281.798 3.27823
