@@ -87,11 +87,13 @@ public:
         v_cmE = make_unique<DynamicBranchVector<double>>(*t, "cmE", "mul");
         v_cmE2 = make_unique<DynamicBranchVector<double>>(*t, "cmE2", "mul");
 
-        beta = TMath::Sqrt((accEnergy+PROTON_MASS)*(accEnergy+PROTON_MASS)-PROTON_MASS*PROTON_MASS)/(accEnergy+PROTON_MASS + Ion("Al27").getMass()) * TVector3(0,0,1);
+        auto targetIon = Ion("Li7");
+
+        beta = TMath::Sqrt((accEnergy+PROTON_MASS)*(accEnergy+PROTON_MASS)-PROTON_MASS*PROTON_MASS)/(accEnergy+PROTON_MASS + targetIon.getMass()) * TVector3(0,0,1);
 
         cout << beta[2] << endl;
 
-        beta2 = constructBeamVector(Ion("H1"),Ion("Al27"),accEnergy).BoostVector();
+        beta2 = constructBeamVector(Ion("H1"),targetIon,accEnergy).BoostVector();
 
         cout << beta2[2] << endl;
         //t->Branch("TPATTERN", &TPATTERN);
