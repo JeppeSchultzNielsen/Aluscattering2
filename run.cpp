@@ -43,9 +43,11 @@ int main(int argc, char *argv[]){
 
     for(int k = 0; k < i; k++){
         //kan kommenteres ud hvis analyzen er kørt før
-        createFile("match/" + adresses[k]);
+        //createFile("match/" + adresses[k]);
 
-        /*createTxt(adresses[k], 10, 0.5);
+        cmEfitter(adresses[k]);
+        /*
+        createTxt(adresses[k], 10, 0.5);
 
         std::vector<int> angles = {100,105,110,115,120,125,140,145,150,155};
 
