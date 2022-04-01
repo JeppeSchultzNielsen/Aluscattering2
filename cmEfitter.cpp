@@ -19,6 +19,8 @@
 #include <TLorentzVector.h>
 #include <ausa/eloss/Ion.h>
 #include <ausa/constants/Mass.h>
+#include <TCanvas.h>
+#include <TLine.h>
 
 using namespace std;
 using namespace AUSA;
@@ -26,6 +28,11 @@ using namespace ROOT::Math;
 using namespace AUSA::EnergyLoss;
 using namespace AUSA::Constants;
 using namespace ROOT;
+
+double gauss(double *x, double *par){
+    double_t result = par[2]*TMath::Gaus(x[0],par[0],par[1], "kTRUE");
+    return result;
+}
 
 TLorentzVector constructBeamVector(const Ion& beam,
                                    const Ion& targetIon,
@@ -35,10 +42,12 @@ TLorentzVector constructBeamVector(const Ion& beam,
     return plbeam + pltarget;
 }
 
-void cmEfitter(string in){
+
+
+vector<double> cmEfitter(string in){
     //energien denne fil blev optaget ved er givet i dens titel
     string energyString = regex_replace(in, regex(R"([\D])"), "");
-    int energy = stoi(energyString);
+    double energy = stoi(energyString);
     //skab en pointer til root-filen der er blevet lavet af analyse.
     string analyzed = "analyzed/"+energyString + "a.root";
     TFile *myFile = TFile::Open(analyzed.c_str());
@@ -72,17 +81,25 @@ void cmEfitter(string in){
     //hvad burde cmE være?
     auto beamVector = constructBeamVector(Ion("H1"),Ion("Al27"),energy);
     auto boostVector = beamVector.BoostVector();
+    boostVector = TMath::Sqrt((energy+PROTON_MASS)*(energy+PROTON_MASS)-PROTON_MASS*PROTON_MASS)/(energy+PROTON_MASS + Ion("Al27").getMass()) * TVector3(0,0,1);
     auto initialProton = TLorentzVector(TMath::Sqrt((energy + PROTON_MASS)*(energy + PROTON_MASS) - PROTON_MASS*PROTON_MASS) * TVector3(0,0,1), energy + PROTON_MASS);
     auto mAl = Ion("Al27").getMass();
     auto initialAl = TLorentzVector(TMath::Sqrt((energy + mAl)*(energy + mAl) - mAl*mAl) * TVector3(0,0,1), energy + mAl);
     beamVector.Boost(-boostVector);
-    double expectedE = 1/TMath::Sqrt(2)*TMath::Sqrt(beamVector[3]*beamVector[3]-mAl*mAl + PROTON_MASS*PROTON_MASS) - PROTON_MASS;
-    cout << expectedE << endl;
-
-
+    auto cmEnergy = beamVector[3];
+    double expectedE = (pow(cmEnergy,2)+pow(PROTON_MASS,2) - pow(mAl,2))/(2*cmEnergy) - PROTON_MASS;
     string histRoot = "cmEhists/"+ energyString + ".root";
     TFile output(histRoot.c_str(), "RECREATE");
     output.cd();
-    cmEHist -> Write();
+    TCanvas *c1= new TCanvas;
+    TLine *l=new TLine(expectedE,0,expectedE,cmEHist -> GetMaximum());
+    l->SetLineColor(kBlack);
 
+    TF1 *fit = new TF1("fit", gauss, cmEHist->GetMaximumBin()-10, cmEHist->GetMaximumBin()+50, 3);
+    fit->SetParameters(expectedE,10,cmEHist->GetMaximum());
+    TFitResultPtr fp = cmEHist->Fit("fit","s && Q","",cmEHist->GetMaximumBin()-10,cmEHist->GetMaximumBin()+50);
+    cmEHist -> Draw();
+    l-> Draw();
+    c1 -> Write();
+    return {energy,expectedE,fp ->Parameter(0)};
 }

@@ -12,6 +12,6 @@ void createFile(string in);
 std::vector<double> thickness(string in, int angle);
 double gaussSum(double *x, double *par);
 std::vector<double> findCurrent(string in);
-void cmEfitter(string in);
+std::vector<double> cmEfitter(string in);
 
 #endif //ALUSCATTERING_RUNNER_H

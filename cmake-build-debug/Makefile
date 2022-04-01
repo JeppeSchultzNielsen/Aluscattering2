@@ -273,6 +273,30 @@ Vinkelhistogrammer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/Vinkelhistogrammer.cpp.s
 .PHONY : Vinkelhistogrammer.cpp.s
 
+cmEfitter.o: cmEfitter.cpp.o
+.PHONY : cmEfitter.o
+
+# target to build an object file
+cmEfitter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/cmEfitter.cpp.o
+.PHONY : cmEfitter.cpp.o
+
+cmEfitter.i: cmEfitter.cpp.i
+.PHONY : cmEfitter.i
+
+# target to preprocess a source file
+cmEfitter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/cmEfitter.cpp.i
+.PHONY : cmEfitter.cpp.i
+
+cmEfitter.s: cmEfitter.cpp.s
+.PHONY : cmEfitter.s
+
+# target to generate assembly for a file
+cmEfitter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Run.dir/build.make CMakeFiles/Run.dir/cmEfitter.cpp.s
+.PHONY : cmEfitter.cpp.s
+
 run.o: run.cpp.o
 .PHONY : run.o
 
@@ -321,6 +345,9 @@ help:
 	@echo "... Vinkelhistogrammer.o"
 	@echo "... Vinkelhistogrammer.i"
 	@echo "... Vinkelhistogrammer.s"
+	@echo "... cmEfitter.o"
+	@echo "... cmEfitter.i"
+	@echo "... cmEfitter.s"
 	@echo "... run.o"
 	@echo "... run.i"
 	@echo "... run.s"
