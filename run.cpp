@@ -48,12 +48,12 @@ int main(int argc, char *argv[]){
 
     for(int k = 0; k < i; k++){
         //kan kommenteres ud hvis analyzen er kørt før
-        createFile("match/" + adresses[k]);
+        //createFile("match/" + adresses[k]);
 
         vector<double> energies = cmEfitter(adresses[k]);
         mytxt2 << to_string(energies[0]) + "\t" + to_string(energies[1]) + "\t" + to_string(energies[2])+"\n";
-        /*
-        createTxt(adresses[k], 10, 0.5);
+
+        //createTxt(adresses[k], 10, 0.5);
 
         std::vector<int> angles = {100,105,110,115,120,125,140,145,150,155};
 
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]){
             mytxt << to_string(countsat110) + "\t" + to_string(solidangle) + "\t" + to_string(solidangle2)
                      + "\t" + to_string(energy) + "\t" + to_string(deltaClock) + "\t" +
                      to_string(deltaCharge) +"\t"+ to_string(angles[j])+"\n";
-        }*/
+        }
     }
     mytxt.close();
 }

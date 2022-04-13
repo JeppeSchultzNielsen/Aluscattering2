@@ -87,7 +87,7 @@ public:
         v_cmE = make_unique<DynamicBranchVector<double>>(*t, "cmE", "mul");
         v_cmE2 = make_unique<DynamicBranchVector<double>>(*t, "cmE2", "mul");
 
-        auto targetIon = Ion("Li7");
+        auto targetIon = Ion("Al27");
 
         beta = TMath::Sqrt((accEnergy+PROTON_MASS)*(accEnergy+PROTON_MASS)-PROTON_MASS*PROTON_MASS)/(accEnergy+PROTON_MASS + targetIon.getMass()) * TVector3(0,0,1);
 

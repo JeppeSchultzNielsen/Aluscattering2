@@ -147,7 +147,7 @@ std::vector<double> thickness(string in, int angle){
             }
         }
     }
-    string histRoot = "summedHists/" + to_string(energy) + "summedhistograms.root";
+    string histRoot = "summedHists/" + to_string(energy) + "angle" + to_string(angle) + "summedhistograms.root";
     TH1I *summedHist = new TH1I("summed", "summed", energy, 0.0, energy - 1);
     TFile output(histRoot.c_str(), "RECREATE");
     double totalSolid = 0;
