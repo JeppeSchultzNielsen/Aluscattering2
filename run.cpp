@@ -46,9 +46,9 @@ int main(int argc, char *argv[]){
     mytxt2 << "Energy\tExpectedE\tMeasuredE\n";
 
 
-    for(int k = 0; k < i; k++){
+    for(int k = 0; k < 3; k++){
         //kan kommenteres ud hvis analyzen er kørt før
-        //createFile("match/" + adresses[k]);
+        createFile("match/" + adresses[k]);
 
         vector<double> energies = cmEfitter(adresses[k]);
         mytxt2 << to_string(energies[0]) + "\t" + to_string(energies[1]) + "\t" + to_string(energies[2])+"\n";
