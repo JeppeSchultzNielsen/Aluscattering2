@@ -87,7 +87,7 @@ public:
         v_cmE = make_unique<DynamicBranchVector<double>>(*t, "cmE", "mul");
         v_cmE2 = make_unique<DynamicBranchVector<double>>(*t, "cmE2", "mul");
 
-        auto targetIon = Ion("Li7");
+        auto targetIon = Ion("Al27");
 
         beta = TMath::Sqrt((accEnergy+PROTON_MASS)*(accEnergy+PROTON_MASS)-PROTON_MASS*PROTON_MASS)/(accEnergy+PROTON_MASS + targetIon.getMass()) * TVector3(0,0,1);
 
@@ -248,9 +248,14 @@ public:
 
         //for hvert hit lægger vi hittets information ind i vores dynamicbranches
         for (auto &hit: hits) {
-            if((hit.index == 0)) continue;
+            if(hit.index == 0){
+                mul -= 1;
+                continue;}
             auto bi = hit.bseg;
-            if((hit.index == 2 && (bi == 13 || bi == 14 || bi == 15 || bi == 16))) continue;
+            if((hit.index == 2 && (bi == 13 || bi == 14 || bi == 15 || bi == 16))){
+                mul -= 1;
+                continue;
+            }
             v_pos->add(hit.position);
             v_dir->add(hit.direction);
             v_theta->add(hit.theta * TMath::RadToDeg());
